@@ -150,7 +150,7 @@ class _EditHouseScreenState extends State<EditHouseScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit House'),
+        title: Text('Edit Credit Card'),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.save),

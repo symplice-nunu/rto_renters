@@ -11,6 +11,9 @@ import './providers/orders.dart';
 import './providers/auth.dart';
 import './screens/orders_screen.dart';
 import 'screens/user_houses_screen.dart';
+import 'screens/home.dart';
+import 'screens/add_credit_card.dart';
+import 'screens/existing_card.dart';
 import 'screens/edit_house_screen.dart';
 import './screens/auth_screen.dart';
 import './helpers/custom_route.dart';
@@ -51,7 +54,7 @@ class MyApp extends StatelessWidget {
         builder: (ctx, auth, _) => MaterialApp(
           title: 'Rent To Own Android System',
           theme: ThemeData(
-            primarySwatch: Colors.purple,
+            primarySwatch: Colors.teal,
             accentColor: Colors.deepOrange,
             fontFamily: 'Lato',
             pageTransitionsTheme: PageTransitionsTheme(
@@ -76,6 +79,9 @@ class MyApp extends StatelessWidget {
             CartScreen.routeName: (ctx) => CartScreen(),
             OrdersScreen.routeName: (ctx) => OrdersScreen(),
             UserHousesScreen.routeName: (ctx) => UserHousesScreen(),
+            ExistingCardPage.routeName: (ctx) => ExistingCardPage(),
+            MySampleAddCreditCard.routeName: (ctx) => MySampleAddCreditCard(),
+            HomePage.routeName: (ctx) => HomePage(),
             EditHouseScreen.routeName: (ctx) => EditHouseScreen(),
           },
         ),
@@ -83,3 +89,29 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+// import 'package:flutter/material.dart';
+// import 'package:rto_renters/screens/add_credit_card.dart';
+// import 'package:rto_renters/screens/existing_card.dart';
+// import 'package:rto_renters/screens/home.dart';
+
+// void main() => runApp(MyApp());
+
+// class MyApp extends StatelessWidget {
+//   // This widget is the root of your application.
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Flutter Demo',
+//       theme: ThemeData(
+//         primarySwatch: Colors.teal
+//       ),
+//       initialRoute: '/home',
+//       routes: {
+//         '/home': (context) => HomePage(),
+//         '/existing_card': (context) => ExistingCardPage(),
+//         '/add_credit_card': (context) => MySampleAddCreditCard(),
+//       },
+//     );
+//   }
+// }
+

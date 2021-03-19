@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../screens/orders_screen.dart';
 import '../screens/user_houses_screen.dart';
+import '../screens/home.dart';
 import '../providers/auth.dart';
 import '../helpers/custom_route.dart';
 
@@ -40,11 +41,20 @@ class AppDrawer extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            leading: Icon(Icons.edit),
-            title: Text('Manage Houses'),
+            leading: Icon(Icons.money_off),
+            title: Text('Pay House'),
             onTap: () {
               Navigator.of(context)
                   .pushReplacementNamed(UserHousesScreen.routeName);
+            },
+          ),
+          Divider(),
+           ListTile(
+            leading: Icon(Icons.car_rental),
+            title: Text('Credit Card Test'),
+            onTap: () {
+              Navigator.of(context)
+                  .pushReplacementNamed(HomePage.routeName);
             },
           ),
           Divider(),

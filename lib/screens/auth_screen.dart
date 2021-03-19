@@ -20,12 +20,14 @@ class AuthScreen extends StatelessWidget {
       // resizeToAvoidBottomInset: false,
       body: Stack(
         children: <Widget>[
+          
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Color.fromRGBO(215, 117, 255, 1).withOpacity(0.5),
-                  Color.fromRGBO(255, 188, 117, 1).withOpacity(0.9),
+                
+                  Color.fromRGBO(77, 77, 255, 1).withOpacity(0.4),
+                  Color.fromRGBO(77, 77, 255, 1).withOpacity(0.4),
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -43,34 +45,25 @@ class AuthScreen extends StatelessWidget {
                 children: <Widget>[
                   Flexible(
                     child: Container(
-                      margin: EdgeInsets.only(bottom: 30.0),
+                      margin: EdgeInsets.only(bottom: 80.0),
                       padding:
-                          EdgeInsets.symmetric(vertical: 3.0, horizontal: 84.0),
-                      transform: Matrix4.rotationZ(-8 * pi / 180)
-                        ..translate(-10.0),
-                      // ..translate(-10.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.deepOrange.shade900,
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 8,
-                            color: Colors.black26,
-                            offset: Offset(0, 2),
-                          )
-                        ],
-                      ),
+                          EdgeInsets.symmetric(vertical: 30.0, horizontal: 84.0),
+                      
                       child: Text(
                         'Rent To Own',
+                        
                         style: TextStyle(
-                          // color: Colors.black,
-                          color: Theme.of(context).accentTextTheme.title.color,
-                          fontSize: 18,
-                          fontFamily: 'Anton',
+                          color: Colors.black,
+                          // color: Theme.of(context).scaffoldBackgroundColor,
+                          fontSize: 30,
+                          fontFamily: 'Times new roman',
                           fontWeight: FontWeight.normal,
                         ),
+                        
                       ),
+                      
                     ),
+                    
                   ),
                   Flexible(
                     flex: deviceSize.width > 600 ? 2 : 1,
