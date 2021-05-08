@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:rto_renters/screens/homee.dart';
 import '../screens/orders_screen.dart';
 import '../screens/user_houses_screen.dart';
 import '../screens/home.dart';
@@ -32,26 +32,32 @@ class AppDrawer extends StatelessWidget {
             onTap: () {
               Navigator.of(context)
                   .pushReplacementNamed(OrdersScreen.routeName);
-              // Navigator.of(context).pushReplacement(
-              //   CustomRoute(
-              //     builder: (ctx) => OrdersScreen(),
-              //   ),
-              // );
+              
             },
           ),
-          Divider(),
+           Divider(),
+         
           ListTile(
             leading: Icon(Icons.money_off),
-            title: Text('Pay House'),
+            title: Text('Request to cancel rent'),
             onTap: () {
               Navigator.of(context)
                   .pushReplacementNamed(UserHousesScreen.routeName);
             },
           ),
           Divider(),
+          ListTile(
+            leading: Icon(Icons.payment),
+            title: Text('Pay Bail'),
+            onTap: () {
+              Navigator.of(context)
+                  .pushReplacementNamed(HomeePage.routeName);
+            },
+          ),
+          Divider(),
            ListTile(
-            leading: Icon(Icons.car_rental),
-            title: Text('Credit Card Test'),
+            leading: Icon(Icons.payments),
+            title: Text('Pay House'),
             onTap: () {
               Navigator.of(context)
                   .pushReplacementNamed(HomePage.routeName);

@@ -2,27 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:rto_renters/services/payment_service.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:rto_renters/widgets/app_drawer.dart';
-import './existing_card.dart';
+// import './existing_card.dart';
 
-class HomePage extends StatefulWidget {
-  static const routeName = '/user-credcard';
-  HomePage({Key key}) : super(key: key);
+class HomeePage extends StatefulWidget {
+  static const routeName = '/user-creditcard';
+  HomeePage({Key key}) : super(key: key);
 
   @override
-  HomePageState createState() => HomePageState();
+  HomeePageState createState() => HomeePageState();
 }
 
-class HomePageState extends State<HomePage> {
+class HomeePageState extends State<HomeePage> {
   onItemPress(BuildContext context, int index) async {
     switch(index) {
       case 0:
         payViaNewCard(context);
         break;
-      case 1:
-        Navigator.pushNamed(context, ExistingCardPage.routeName);
+      // case 1:
+      //   Navigator.pushNamed(context, ExistingCardPage.routeName);
         
        
-        break;
+      //   break;
     }
   }
 
@@ -57,7 +57,7 @@ class HomePageState extends State<HomePage> {
     ThemeData theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('House Payment'),
+        title: Text('Bail Payment'),
       ),
       
       // appBar: AppBar(
@@ -84,10 +84,10 @@ class HomePageState extends State<HomePage> {
                 icon = Icon(Icons.add_circle, color: theme.primaryColor);
                 text = Text('Pay via new card');
                 break;
-              case 1:
-                icon = Icon(Icons.credit_card, color: theme.primaryColor);
-                text = Text('Pay via existing card');
-                break;
+              // case 1:
+              //   icon = Icon(Icons.credit_card, color: theme.primaryColor);
+              //   text = Text('Pay via existing card');
+              //   break;
             }
 
             return InkWell(

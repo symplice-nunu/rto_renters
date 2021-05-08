@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:rto_renters/screens/homee.dart';
 import './screens/splash_screen.dart';
 import './screens/cart_screen.dart';
 import 'screens/houses_overview_screen.dart';
@@ -82,6 +82,8 @@ class MyApp extends StatelessWidget {
             ExistingCardPage.routeName: (ctx) => ExistingCardPage(),
             MySampleAddCreditCard.routeName: (ctx) => MySampleAddCreditCard(),
             HomePage.routeName: (ctx) => HomePage(),
+            
+            HomeePage.routeName: (ctx) => HomeePage(),
             EditHouseScreen.routeName: (ctx) => EditHouseScreen(),
           },
         ),

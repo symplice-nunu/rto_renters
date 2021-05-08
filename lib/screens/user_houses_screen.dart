@@ -20,7 +20,7 @@ class UserHousesScreen extends StatelessWidget {
     print('rebuilding...');
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Your Credit Card'),
+        title: const Text('Cancel Rent Agreement'),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.add),
