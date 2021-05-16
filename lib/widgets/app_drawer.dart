@@ -27,8 +27,8 @@ class AppDrawer extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            leading: Icon(Icons.payment),
-            title: Text('Orders'),
+            leading: Icon(Icons.request_quote),
+            title: Text('Your Application'),
             onTap: () {
               Navigator.of(context)
                   .pushReplacementNamed(OrdersScreen.routeName);
@@ -38,7 +38,7 @@ class AppDrawer extends StatelessWidget {
            Divider(),
          
           ListTile(
-            leading: Icon(Icons.money_off),
+            leading: Icon(Icons.cancel),
             title: Text('Request to cancel rent'),
             onTap: () {
               Navigator.of(context)
@@ -56,7 +56,7 @@ class AppDrawer extends StatelessWidget {
           ),
           Divider(),
            ListTile(
-            leading: Icon(Icons.payments),
+            leading: Icon(Icons.payment),
             title: Text('Pay House'),
             onTap: () {
               Navigator.of(context)

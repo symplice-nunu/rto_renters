@@ -10,11 +10,11 @@ class OrdersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('building orders');
+    print('building applications');
     
     return Scaffold(
       appBar: AppBar(
-        title: Text('Your Orders'),
+        title: Text('Your House Application'),
       ),
       drawer: AppDrawer(),
       body: FutureBuilder(

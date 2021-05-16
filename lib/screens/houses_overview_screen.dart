@@ -66,11 +66,11 @@ class _HousesOverviewScreenState extends State<HousesOverviewScreen> {
             ),
             itemBuilder: (_) => [
                   PopupMenuItem(
-                    child: Text('Only Favorites'),
+                    child: Text('Only Favorites House(s)'),
                     value: FilterOptions.Favorites,
                   ),
                   PopupMenuItem(
-                    child: Text('Show All'),
+                    child: Text('Show All Houses'),
                     value: FilterOptions.All,
                   ),
                 ],
@@ -82,7 +82,7 @@ class _HousesOverviewScreenState extends State<HousesOverviewScreen> {
                 ),
             child: IconButton(
               icon: Icon(
-                Icons.shopping_cart,
+                Icons.house_siding,
               ),
               onPressed: () {
                 Navigator.of(context).pushNamed(CartScreen.routeName);

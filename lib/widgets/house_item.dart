@@ -54,7 +54,7 @@ class HouseItem extends StatelessWidget {
           ),
           trailing: IconButton(
             icon: Icon(
-              Icons.shopping_cart,
+              Icons.house_siding,
             ),
             onPressed: () {
               cart.addItem(house.id, house.price, house.villagename);
@@ -62,7 +62,7 @@ class HouseItem extends StatelessWidget {
               Scaffold.of(context).showSnackBar(
                 SnackBar(
                   content: Text(
-                    'Added item to cart!',
+                    'House Added in application room',
                   ),
                   duration: Duration(seconds: 2),
                   action: SnackBarAction(
