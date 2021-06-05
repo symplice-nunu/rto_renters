@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/cart.dart' show Cart;
-import '../widgets/cart_item.dart';
-import '../providers/orders.dart';
+import '../providers/approom.dart' show Room;
+import '../widgets/room_item.dart';
+import '../providers/houseapplication.dart';
 
-class CartScreen extends StatelessWidget {
-  static const routeName = '/cart';
+class RoomScreen extends StatelessWidget {
+  static const routeName = '/room';
 
   @override
   Widget build(BuildContext context) {
-    final cart = Provider.of<Cart>(context);
+    final room = Provider.of<Room>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Your Application'),
+        title: Text('Your application room'),
       ),
       body: Column(
         children: <Widget>[
@@ -31,14 +31,14 @@ class CartScreen extends StatelessWidget {
                   Spacer(),
                   Chip(
                     label: Text(
-                      '\$${cart.totalAmount.toStringAsFixed(2)}',
+                      '\$${room.totalAmount.toStringAsFixed(2)}',
                       style: TextStyle(
                         color: Theme.of(context).primaryTextTheme.title.color,
                       ),
                     ),
                     backgroundColor: Theme.of(context).primaryColor,
                   ),
-                  OrderButton(cart: cart)
+                  OrderButton(room: room)
                 ],
               ),
             ),
@@ -46,13 +46,13 @@ class CartScreen extends StatelessWidget {
           SizedBox(height: 10),
           Expanded(
             child: ListView.builder(
-              itemCount: cart.items.length,
-              itemBuilder: (ctx, i) => CartItem(
-                    cart.items.values.toList()[i].id,
-                    cart.items.keys.toList()[i],
-                    cart.items.values.toList()[i].price,
-                    cart.items.values.toList()[i].quantity,
-                    cart.items.values.toList()[i].title,
+              itemCount: room.items.length,
+              itemBuilder: (ctx, i) => RoomItem(
+                    room.items.values.toList()[i].id,
+                    room.items.keys.toList()[i],
+                    room.items.values.toList()[i].price,
+                    room.items.values.toList()[i].quantity,
+                    room.items.values.toList()[i].houseno,
                   ),
             ),
           )
@@ -65,10 +65,10 @@ class CartScreen extends StatelessWidget {
 class OrderButton extends StatefulWidget {
   const OrderButton({
     Key key,
-    @required this.cart,
+    @required this.room,
   }) : super(key: key);
 
-  final Cart cart;
+  final Room room;
 
   @override
   _OrderButtonState createState() => _OrderButtonState();
@@ -81,20 +81,20 @@ class _OrderButtonState extends State<OrderButton> {
   Widget build(BuildContext context) {
     return FlatButton(
       child: _isLoading ? CircularProgressIndicator() : Text('APPLY'),
-      onPressed: (widget.cart.totalAmount <= 0 || _isLoading)
+      onPressed: (widget.room.totalAmount <= 0 || _isLoading)
           ? null
           : () async {
               setState(() {
                 _isLoading = true;
               });
-              await Provider.of<Orders>(context, listen: false).addOrder(
-                widget.cart.items.values.toList(),
-                widget.cart.totalAmount,
+              await Provider.of<Application>(context, listen: false).addOrder(
+                widget.room.items.values.toList(),
+                widget.room.totalAmount,
               );
               setState(() {
                 _isLoading = false;
               });
-              widget.cart.clear();
+              widget.room.clear();
             },
       textColor: Theme.of(context).primaryColor,
     );

@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 
 import '../models/http_exception.dart';
 import './house.dart';
+import './cancel.dart';
 
 class Houses with ChangeNotifier {
   List<House> _items = [
@@ -41,11 +42,14 @@ class Houses with ChangeNotifier {
     //       'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Cast-Iron-Pan.jpg/1024px-Cast-Iron-Pan.jpg',
     // ),
   ];
+  List<Cancel> _itemss = [
+
+  ];
   // var _showFavoritesOnly = false;
   final String authToken;
   final String userId;
 
-  Houses(this.authToken, this.userId, this._items);
+  Houses(this.authToken, this.userId, this._items, this._itemss);
 
   List<House> get items {
     // if (_showFavoritesOnly) {
@@ -53,29 +57,31 @@ class Houses with ChangeNotifier {
     // }
     return [..._items];
   }
+  List<Cancel> get itemss {
+
+    return [..._itemss];
+  }
 
   List<House> get favoriteItems {
     return _items.where((housItem) => housItem.isFavorite).toList();
+  }
+   List<Cancel> get favoriteItemss {
+    return _itemss.where((housItem) => housItem.isFavorite).toList();
   }
 
   House findById(String id) {
     return _items.firstWhere((hous) => hous.id == id);
   }
+  Cancel findByIdd(String id) {
+    return _itemss.firstWhere((hous) => hous.id == id);
+  }
 
-  // void showFavoritesOnly() {
-  //   _showFavoritesOnly = true;
-  //   notifyListeners();
-  // }
-
-  // void showAll() {
-  //   _showFavoritesOnly = false;
-  //   notifyListeners();
-  // }
+  
 
   Future<void> fetchAndSetHouses([bool filterByUser = false]) async {
     final filterString = filterByUser ? 'orderBy="creatorId"&equalTo="$userId"' : '';
     var url =
-        'https://rtotest-891ba-default-rtdb.firebaseio.com/houses.json?auth=$authToken&$filterString';
+        'https://rtotest-891ba-default-rtdb.firebaseio.com/house.json?auth=$authToken&$filterString';
         // 'https://rent-to-own-6688f-default-rtdb.firebaseio.com/houses.json?auth=$authToken&$filterString';
     try {
       final response = await http.get(url);
@@ -114,9 +120,41 @@ class Houses with ChangeNotifier {
     }
   }
 
+  Future<void> fetchAndSetCancels([bool filterByUser = false]) async {
+    final filterString = filterByUser ? 'orderBy="creatorId"&equalTo="$userId"' : '';
+    var url =
+        'https://rtotest-891ba-default-rtdb.firebaseio.com/cancelrents.json?auth=$authToken&$filterString';
+    try {
+      final response = await http.get(url);
+      final extractedData = json.decode(response.body) as Map<String, dynamic>;
+      if (extractedData == null) {
+        return;
+      }
+      url =
+          'https://rtotest-891ba-default-rtdb.firebaseio.com/userFavorites/$userId.json?auth=$authToken';
+      final favoriteResponse = await http.get(url);
+      final favoriteData = json.decode(favoriteResponse.body);
+      final List<Cancel> loadedCancels = [];
+      extractedData.forEach((prodId, prodData) {
+        loadedCancels.add(Cancel(
+          id: prodId,
+          name: prodData['name'],
+          houseno: prodData['houseno'],
+          reasons: prodData['reasons'],
+          isFavorite:
+              favoriteData == null ? false : favoriteData[prodId] ?? false,
+        ));
+      });
+      _itemss = loadedCancels;
+      notifyListeners();
+    } catch (error) {
+      throw (error);
+    }
+  }
+
   Future<void> addHouse(House house) async {
     final url =
-        'https://rtotest-891ba-default-rtdb.firebaseio.com/houses.json?auth=$authToken';
+        'https://rtotest-891ba-default-rtdb.firebaseio.com/house.json?auth=$authToken';
         //  'https://rent-to-own-6688f-default-rtdb.firebaseio.com/houses.json?auth=$authToken';
     try {
       final response = await http.post(
@@ -159,11 +197,40 @@ class Houses with ChangeNotifier {
     }
   }
 
+  Future<void> addCancel(Cancel cancel) async {
+    final url =
+        'https://rtotest-891ba-default-rtdb.firebaseio.com/cancelrents.json?auth=$authToken';
+    try {
+      final response = await http.post(
+        url,
+        body: json.encode({
+          'name': cancel.name,
+          'houseno': cancel.houseno,
+          'reasons': cancel.reasons,
+          'creatorId': userId,
+        }),
+      );
+      final newProduct = Cancel(
+        name: cancel.name,
+        houseno: cancel.houseno,
+        reasons: cancel.reasons,
+        id: json.decode(response.body)['name'],
+      );
+      _itemss.add(newProduct);
+      // _items.insert(0, newProduct); // at the start of the list
+      notifyListeners();
+    } catch (error) {
+      print(error);
+      throw error;
+    }
+  }
+
+
   Future<void> updateHouse(String id, House newHouse) async {
     final prodIndex = _items.indexWhere((prod) => prod.id == id);
     if (prodIndex >= 0) {
       final url =
-          'https://rtotest-891ba-default-rtdb.firebaseio.com/houses/$id.json?auth=$authToken';
+          'https://rtotest-891ba-default-rtdb.firebaseio.com/house/$id.json?auth=$authToken';
           // 'https://rent-to-own-6688f-default-rtdb.firebaseio.com/houses/$id.json?auth=$authToken';
       await http.patch(url,
           body: json.encode({
@@ -186,9 +253,27 @@ class Houses with ChangeNotifier {
     }
   }
 
+  Future<void> updateCancel(String id, Cancel newCancel) async {
+    final prodIndex = _items.indexWhere((prod) => prod.id == id);
+    if (prodIndex >= 0) {
+      final url =
+          'https://rtotest-891ba-default-rtdb.firebaseio.com/cancelrents/$id.json?auth=$authToken';
+      await http.patch(url,
+          body: json.encode({
+            'name': newCancel.name,
+            'houseno': newCancel.houseno,
+            'reasons': newCancel.reasons
+          }));
+      _itemss[prodIndex] = newCancel;
+      notifyListeners();
+    } else {
+      print('...');
+    }
+  }
+
   Future<void> deleteHouse(String id) async {
     final url =
-        'https://rtotest-891ba-default-rtdb.firebaseio.com/houses/$id.json?auth=$authToken';
+        'https://rtotest-891ba-default-rtdb.firebaseio.com/house/$id.json?auth=$authToken';
         // 'https://rent-to-own-6688f-default-rtdb.firebaseio.com/houses/$id.json?auth=$authToken';
     final existingHouseIndex = _items.indexWhere((prod) => prod.id == id);
     var existingHouse = _items[existingHouseIndex];
@@ -201,5 +286,21 @@ class Houses with ChangeNotifier {
       throw HttpException('Could not delete house.');
     }
     existingHouse = null;
+  }
+
+  Future<void> deleteCancel(String id) async {
+    final url =
+        'https://rtotest-891ba-default-rtdb.firebaseio.com/cancelrents/$id.json?auth=$authToken';
+    final existingCancelIndex = _itemss.indexWhere((prod) => prod.id == id);
+    var existingCancel = _itemss[existingCancelIndex];
+    _items.removeAt(existingCancelIndex);
+    notifyListeners();
+    final response = await http.delete(url);
+    if (response.statusCode >= 400) {
+      _itemss.insert(existingCancelIndex, existingCancel);
+      notifyListeners();
+      throw HttpException('Could not cancel rent agreement.');
+    }
+    existingCancel = null;
   }
 }

@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rto_renters/screens/homee.dart';
 import './screens/splash_screen.dart';
-import './screens/cart_screen.dart';
+import './screens/room_screen.dart';
+import 'screens/edit_cancel_screen.dart';
 import 'screens/houses_overview_screen.dart';
 import 'screens/house_detail_screen.dart';
 import 'providers/houses.dart';
-import './providers/cart.dart';
-import './providers/orders.dart';
+import './providers/approom.dart';
+import './providers/houseapplication.dart';
 import './providers/auth.dart';
-import './screens/orders_screen.dart';
+import './screens/application_screen.dart';
 import 'screens/user_houses_screen.dart';
+import 'screens/user_cancels_screen.dart';
 import 'screens/home.dart';
 import 'screens/add_credit_card.dart';
 import 'screens/existing_card.dart';
@@ -35,18 +37,19 @@ class MyApp extends StatelessWidget {
             auth.token,
             auth.userId,
             previousProducts == null ? [] : previousProducts.items,
+            previousProducts == null ? [] : previousProducts.itemss,
           ),
         ),
         ChangeNotifierProvider.value(
-          value: Cart(),
+          value: Room(),
         ),
         // ignore: missing_required_param
-        ChangeNotifierProxyProvider<Auth, Orders>(
+        ChangeNotifierProxyProvider<Auth, Application>(
           // ignore: deprecated_member_use
-          builder: (ctx, auth, previousOrders) => Orders(
+          builder: (ctx, auth, previousOrders) => Application(
             auth.token,
             auth.userId,
-            previousOrders == null ? [] : previousOrders.orders,
+            previousOrders == null ? [] : previousOrders.application,
           ),
         ),
       ],
@@ -76,44 +79,19 @@ class MyApp extends StatelessWidget {
           ),
           routes: {
             HouseDetailScreen.routeName: (ctx) => HouseDetailScreen(),
-            CartScreen.routeName: (ctx) => CartScreen(),
-            OrdersScreen.routeName: (ctx) => OrdersScreen(),
+            RoomScreen.routeName: (ctx) => RoomScreen(),
+            ApplicationScreen.routeName: (ctx) => ApplicationScreen(),
             UserHousesScreen.routeName: (ctx) => UserHousesScreen(),
+            UserCancelsScreen.routeName: (ctx) => UserCancelsScreen(),
             ExistingCardPage.routeName: (ctx) => ExistingCardPage(),
             MySampleAddCreditCard.routeName: (ctx) => MySampleAddCreditCard(),
             HomePage.routeName: (ctx) => HomePage(),
-            
             HomeePage.routeName: (ctx) => HomeePage(),
             EditHouseScreen.routeName: (ctx) => EditHouseScreen(),
+            EditCancelScreen.routeName: (ctx) => EditCancelScreen(),
           },
         ),
       ),
     );
   }
 }
-// import 'package:flutter/material.dart';
-// import 'package:rto_renters/screens/add_credit_card.dart';
-// import 'package:rto_renters/screens/existing_card.dart';
-// import 'package:rto_renters/screens/home.dart';
-
-// void main() => runApp(MyApp());
-
-// class MyApp extends StatelessWidget {
-//   // This widget is the root of your application.
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Flutter Demo',
-//       theme: ThemeData(
-//         primarySwatch: Colors.teal
-//       ),
-//       initialRoute: '/home',
-//       routes: {
-//         '/home': (context) => HomePage(),
-//         '/existing_card': (context) => ExistingCardPage(),
-//         '/add_credit_card': (context) => MySampleAddCreditCard(),
-//       },
-//     );
-//   }
-// }
-

@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import '../widgets/app_drawer.dart';
 import '../widgets/houses_grid.dart';
 import '../widgets/badge.dart';
-import '../providers/cart.dart';
-import './cart_screen.dart';
+import '../providers/approom.dart';
+import './room_screen.dart';
 import '../providers/houses.dart';
 
 enum FilterOptions {
@@ -75,7 +75,7 @@ class _HousesOverviewScreenState extends State<HousesOverviewScreen> {
                   ),
                 ],
           ),
-          Consumer<Cart>(
+          Consumer<Room>(
             builder: (_, cart, ch) => Badge(
                   child: ch,
                   value: cart.itemCount.toString(),
@@ -85,7 +85,7 @@ class _HousesOverviewScreenState extends State<HousesOverviewScreen> {
                 Icons.house_siding,
               ),
               onPressed: () {
-                Navigator.of(context).pushNamed(CartScreen.routeName);
+                Navigator.of(context).pushNamed(RoomScreen.routeName);
               },
             ),
           ),

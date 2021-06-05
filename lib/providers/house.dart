@@ -34,6 +34,7 @@ class House with ChangeNotifier {
     this.isFavorite = false,
   });
 
+ 
   void _setFavValue(bool newValue) {
     isFavorite = newValue;
     notifyListeners();

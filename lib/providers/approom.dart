@@ -1,23 +1,23 @@
 import 'package:flutter/foundation.dart';
 
-class CartItem {
+class AppRoom {
   final String id;
-  final String title;
+  final String houseno;
   final int quantity;
   final double price;
 
-  CartItem({
+  AppRoom({
     @required this.id,
-    @required this.title,
+    @required this.houseno,
     @required this.quantity,
     @required this.price,
   });
 }
 
-class Cart with ChangeNotifier {
-  Map<String, CartItem> _items = {};
+class Room with ChangeNotifier {
+  Map<String, AppRoom> _items = {};
 
-  Map<String, CartItem> get items {
+  Map<String, AppRoom> get items {
     return {..._items};
   }
 
@@ -34,27 +34,27 @@ class Cart with ChangeNotifier {
   }
 
   void addItem(
-    String productId,
+    String houseId,
     double price,
-    String title,
+    String houseno,
   ) {
-    if (_items.containsKey(productId)) {
-      
+    if (_items.containsKey(houseId)) {
+      // change quantity...
       _items.update(
-        productId,
-        (existingCartItem) => CartItem(
+        houseId,
+        (existingCartItem) => AppRoom(
               id: existingCartItem.id,
-              title: existingCartItem.title,
+              houseno: existingCartItem.houseno,
               price: existingCartItem.price,
               quantity: existingCartItem.quantity + 1,
             ),
       );
     } else {
       _items.putIfAbsent(
-        productId,
-        () => CartItem(
+        houseId,
+        () => AppRoom(
               id: DateTime.now().toString(),
-              title: title,
+              houseno: houseno,
               price: price,
               quantity: 1,
             ),
@@ -63,26 +63,26 @@ class Cart with ChangeNotifier {
     notifyListeners();
   }
 
-  void removeItem(String productId) {
-    _items.remove(productId);
+  void removeItem(String houseId) {
+    _items.remove(houseId);
     notifyListeners();
   }
 
-  void removeSingleItem(String productId) {
-    if (!_items.containsKey(productId)) {
+  void removeSingleItem(String houseId) {
+    if (!_items.containsKey(houseId)) {
       return;
     }
-    if (_items[productId].quantity > 1) {
+    if (_items[houseId].quantity > 1) {
       _items.update(
-          productId,
-          (existingCartItem) => CartItem(
+          houseId,
+          (existingCartItem) => AppRoom(
                 id: existingCartItem.id,
-                title: existingCartItem.title,
+                houseno: existingCartItem.houseno,
                 price: existingCartItem.price,
                 quantity: existingCartItem.quantity - 1,
               ));
     } else {
-      _items.remove(productId);
+      _items.remove(houseId);
     }
     notifyListeners();
   }

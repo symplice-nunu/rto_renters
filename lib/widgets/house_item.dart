@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../screens/house_detail_screen.dart';
 import '../providers/house.dart';
-import '../providers/cart.dart';
+import '../providers/approom.dart';
 import '../providers/auth.dart';
 
 class HouseItem extends StatelessWidget {
@@ -11,7 +11,7 @@ class HouseItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final house = Provider.of<House>(context, listen: false);
-    final cart = Provider.of<Cart>(context, listen: false);
+    final cart = Provider.of<Room>(context, listen: false);
     final authData = Provider.of<Auth>(context, listen: false);
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
@@ -41,10 +41,10 @@ class HouseItem extends StatelessWidget {
                   ),
                   color: Theme.of(context).accentColor,
                   onPressed: () {
-                    // product.toggleFavoriteStatus(
-                    //   authData.token,
-                    //   authData.userId,
-                    // );
+                    product.toggleFavoriteStatus(
+                      authData.token,
+                      authData.userId,
+                    );
                   },
                 ),
           ),

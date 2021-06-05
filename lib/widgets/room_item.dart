@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/cart.dart';
+import '../providers/approom.dart';
 
-class CartItem extends StatelessWidget {
+class RoomItem extends StatelessWidget {
   final String id;
-  final String productId;
+  final String houseId;
   final double price;
   final int quantity;
-  final String title;
+  final String houseno;
 
-  CartItem(
+  RoomItem(
     this.id,
-    this.productId,
+    this.houseId,
     this.price,
     this.quantity,
-    this.title,
+    this.houseno,
   );
 
   @override
@@ -43,7 +43,7 @@ class CartItem extends StatelessWidget {
           builder: (ctx) => AlertDialog(
                 title: Text('Are you sure?'),
                 content: Text(
-                  'Do you want to remove the item from the cart?',
+                  'Do you want to remove the House from the Application room?',
                 ),
                 actions: <Widget>[
                   FlatButton(
@@ -63,7 +63,7 @@ class CartItem extends StatelessWidget {
         );
       },
       onDismissed: (direction) {
-        Provider.of<Cart>(context, listen: false).removeItem(productId);
+        Provider.of<Room>(context, listen: false).removeItem(houseId);
       },
       child: Card(
         margin: EdgeInsets.symmetric(
@@ -81,7 +81,7 @@ class CartItem extends StatelessWidget {
                 ),
               ),
             ),
-            title: Text(title),
+            title: Text(houseno),
             subtitle: Text('Total: \$${(price * quantity)}'),
             trailing: Text('$quantity x'),
           ),

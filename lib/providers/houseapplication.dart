@@ -3,54 +3,54 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
-import './cart.dart';
+import './approom.dart';
 
-class OrderItem {
+class HouseApplication {
   final String id;
   final double amount;
-  final List<CartItem> products;
+  final List<AppRoom> houses;
   final DateTime dateTime;
 
-  OrderItem({
+  HouseApplication({
     @required this.id,
     @required this.amount,
-    @required this.products,
+    @required this.houses,
     @required this.dateTime,
   });
 }
 
-class Orders with ChangeNotifier {
-  List<OrderItem> _orders = [];
+class Application with ChangeNotifier {
+  List<HouseApplication> _orders = [];
   final String authToken;
   final String userId;
 
-  Orders(this.authToken, this.userId, this._orders);
+  Application(this.authToken, this.userId, this._orders);
 
-  List<OrderItem> get orders {
+  List<HouseApplication> get application {
     return [..._orders];
   }
 
   Future<void> fetchAndSetOrders() async {
-    final url = 'https://rent-to-own-6688f-default-rtdb.firebaseio.com/orders/$userId.json?auth=$authToken';
+    final url = 'https://rtotest-891ba-default-rtdb.firebaseio.com/application/$userId.json?auth=$authToken';
     final response = await http.get(url);
-    final List<OrderItem> loadedOrders = [];
+    final List<HouseApplication> loadedOrders = [];
     final extractedData = json.decode(response.body) as Map<String, dynamic>;
     if (extractedData == null) {
       return;
     }
     extractedData.forEach((orderId, orderData) {
       loadedOrders.add(
-        OrderItem(
+        HouseApplication(
           id: orderId,
           amount: orderData['amount'],
           dateTime: DateTime.parse(orderData['dateTime']),
-          products: (orderData['products'] as List<dynamic>)
+          houses: (orderData['houses'] as List<dynamic>)
               .map(
-                (item) => CartItem(
+                (item) => AppRoom(
                       id: item['id'],
                       price: item['price'],
                       quantity: item['quantity'],
-                      title: item['title'],
+                      houseno: item['houseno'],
                     ),
               )
               .toList(),
@@ -61,18 +61,18 @@ class Orders with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addOrder(List<CartItem> cartProducts, double total) async {
-    final url = 'https://rent-to-own-6688f-default-rtdb.firebaseio.com/orders/$userId.json?auth=$authToken';
+  Future<void> addOrder(List<AppRoom> roomHouses, double total) async {
+    final url = 'https://rtotest-891ba-default-rtdb.firebaseio.com/application/$userId.json?auth=$authToken';
     final timestamp = DateTime.now();
     final response = await http.post(
       url,
       body: json.encode({
         'amount': total,
         'dateTime': timestamp.toIso8601String(),
-        'products': cartProducts
+        'houses': roomHouses
             .map((cp) => {
                   'id': cp.id,
-                  'title': cp.title,
+                  'houseno': cp.houseno,
                   'quantity': cp.quantity,
                   'price': cp.price,
                 })
@@ -81,11 +81,11 @@ class Orders with ChangeNotifier {
     );
     _orders.insert(
       0,
-      OrderItem(
+      HouseApplication(
         id: json.decode(response.body)['name'],
         amount: total,
         dateTime: timestamp,
-        products: cartProducts,
+        houses: roomHouses,
       ),
     );
     notifyListeners();

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rto_renters/screens/homee.dart';
-import '../screens/orders_screen.dart';
+import '../screens/application_screen.dart';
 import '../screens/user_houses_screen.dart';
+import '../screens/user_cancels_screen.dart';
 import '../screens/home.dart';
 import '../providers/auth.dart';
 import '../helpers/custom_route.dart';
@@ -31,7 +32,7 @@ class AppDrawer extends StatelessWidget {
             title: Text('Your Application'),
             onTap: () {
               Navigator.of(context)
-                  .pushReplacementNamed(OrdersScreen.routeName);
+                  .pushReplacementNamed(ApplicationScreen.routeName);
               
             },
           ),
@@ -40,6 +41,16 @@ class AppDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.cancel),
             title: Text('Request to cancel rent'),
+            onTap: () {
+              Navigator.of(context)
+                  .pushReplacementNamed(UserCancelsScreen.routeName);
+            },
+          ),
+          Divider(),
+         
+          ListTile(
+            leading: Icon(Icons.view_column),
+            title: Text('View Contract'),
             onTap: () {
               Navigator.of(context)
                   .pushReplacementNamed(UserHousesScreen.routeName);
