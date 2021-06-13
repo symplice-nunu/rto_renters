@@ -13,6 +13,8 @@ class UserCancelsScreen extends StatelessWidget {
         .fetchAndSetCancels(true);
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
     // final productsData = Provider.of<Products>(context);
@@ -49,6 +51,7 @@ class UserCancelsScreen extends StatelessWidget {
                                       UserCancelItem(
                                         cancelsData.itemss[i].id,
                                         cancelsData.itemss[i].name,
+                                        cancelsData.itemss[i].status,
                                       ),
                                       Divider(),
                                     ],

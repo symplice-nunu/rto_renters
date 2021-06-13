@@ -11,7 +11,7 @@ class HouseItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final house = Provider.of<House>(context, listen: false);
-    final cart = Provider.of<Room>(context, listen: false);
+    final room = Provider.of<Room>(context, listen: false);
     final authData = Provider.of<Auth>(context, listen: false);
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
@@ -57,7 +57,7 @@ class HouseItem extends StatelessWidget {
               Icons.house_siding,
             ),
             onPressed: () {
-              cart.addItem(house.id, house.price, house.villagename);
+              room.addItem(house.id, house.price, house.houseno, house.villagename);
               Scaffold.of(context).hideCurrentSnackBar();
               Scaffold.of(context).showSnackBar(
                 SnackBar(
@@ -68,7 +68,7 @@ class HouseItem extends StatelessWidget {
                   action: SnackBarAction(
                     label: 'UNDO',
                     onPressed: () {
-                      cart.removeSingleItem(house.id);
+                      room.removeSingleItem(house.id);
                     },
                   ),
                 ),

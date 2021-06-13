@@ -18,11 +18,11 @@ class MySampleAddCreditCard extends StatefulWidget {
 
 class MySampleAddCreditCardState extends State<MySampleAddCreditCard> {
   String cardNumber = '';
-  String expiryDate = '';
+ 
   String cardHolderName = '';
   String cvvCode = '';
   bool isCvvFocused = false;
-
+  String expiryDate = '';
   @override
   Widget build(BuildContext context) {
 

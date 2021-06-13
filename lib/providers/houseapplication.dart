@@ -30,7 +30,7 @@ class Application with ChangeNotifier {
     return [..._orders];
   }
 
-  Future<void> fetchAndSetOrders() async {
+  Future<void> fetchAndSetApplication() async {
     final url = 'https://rtotest-891ba-default-rtdb.firebaseio.com/application/$userId.json?auth=$authToken';
     final response = await http.get(url);
     final List<HouseApplication> loadedOrders = [];
@@ -51,6 +51,7 @@ class Application with ChangeNotifier {
                       price: item['price'],
                       quantity: item['quantity'],
                       houseno: item['houseno'],
+                      status: item['status'],
                     ),
               )
               .toList(),
@@ -61,7 +62,7 @@ class Application with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addOrder(List<AppRoom> roomHouses, double total) async {
+  Future<void> addApplication(List<AppRoom> roomHouses, double total) async {
     final url = 'https://rtotest-891ba-default-rtdb.firebaseio.com/application/$userId.json?auth=$authToken';
     final timestamp = DateTime.now();
     final response = await http.post(
@@ -73,6 +74,7 @@ class Application with ChangeNotifier {
             .map((cp) => {
                   'id': cp.id,
                   'houseno': cp.houseno,
+                  'status': "Pending....",
                   'quantity': cp.quantity,
                   'price': cp.price,
                 })

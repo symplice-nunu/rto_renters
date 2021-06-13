@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
+import 'package:rto_renters/page/second_page.dart';
 
+import '../local_notications_helper.dart';
 import '../providers/cancel.dart';
 import '../providers/houses.dart';
 
@@ -12,6 +15,7 @@ class EditCancelScreen extends StatefulWidget {
 }
 
 class _EditCancelScreenState extends State<EditCancelScreen> {
+  final notifications = FlutterLocalNotificationsPlugin();
   final _priceFocusNode = FocusNode();
   final _descriptionFocusNode = FocusNode();
   final _imageUrlController = TextEditingController();
@@ -21,11 +25,13 @@ class _EditCancelScreenState extends State<EditCancelScreen> {
     id: null,
     name: '',
     houseno: '',
+    status: '',
     reasons: '',
   );
   var _initValues = {
     'name': '',
     'houseno': '',
+    'status': '',
     'reasons': '',
   };
   var _isInit = true;
@@ -35,6 +41,14 @@ class _EditCancelScreenState extends State<EditCancelScreen> {
   void initState() {
     _imageUrlFocusNode.addListener(_updateImageUrl);
     super.initState();
+      final settingsAndroid = AndroidInitializationSettings('app_icon');
+    final settingsIOS = IOSInitializationSettings(
+        onDidReceiveLocalNotification: (id, title, body, payload) =>
+            onSelectNotification(payload));
+
+    notifications.initialize(
+        InitializationSettings(settingsAndroid, settingsIOS),
+        onSelectNotification: onSelectNotification);
   }
 
   @override
@@ -124,7 +138,11 @@ class _EditCancelScreenState extends State<EditCancelScreen> {
     Navigator.of(context).pop();
     // Navigator.of(context).pop();
   }
-
+  Future onSelectNotification(String payload) async => await Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => SecondPage(payload: payload)),
+      );
+      
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -133,7 +151,9 @@ class _EditCancelScreenState extends State<EditCancelScreen> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.send_outlined),
+            
             onPressed: _saveForm,
+             
           ),
         ],
       ),
@@ -164,6 +184,7 @@ class _EditCancelScreenState extends State<EditCancelScreen> {
                         _editedCancel = Cancel(
                             name: value,
                             houseno: _editedCancel.houseno,
+                            status: _editedCancel.status,
                             reasons: _editedCancel.reasons,
                             id: _editedCancel.id,
                             isFavorite: _editedCancel.isFavorite);
@@ -189,6 +210,7 @@ class _EditCancelScreenState extends State<EditCancelScreen> {
                         _editedCancel = Cancel(
                             name: _editedCancel.name,
                             houseno: value,
+                            status: _editedCancel.status,
                             reasons: _editedCancel.reasons,
                             id: _editedCancel.id,
                             isFavorite: _editedCancel.isFavorite);
@@ -213,13 +235,18 @@ class _EditCancelScreenState extends State<EditCancelScreen> {
                         _editedCancel = Cancel(
                             name: _editedCancel.name,
                             houseno: _editedCancel.houseno,
+                            status: _editedCancel.status,
                             reasons: value,
                           id: _editedCancel.id,
                           isFavorite: _editedCancel.isFavorite,
                         );
                       },
                     ),
-                   
+                   RaisedButton(
+              child: Text('Show notification'),
+              onPressed: () => showOngoingNotification(notifications,
+                  title: 'Tite', body: 'nono'),
+            ),
                   ],
                 ),
               ),

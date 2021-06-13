@@ -59,6 +59,14 @@ class _ApplicationItemState extends State<ApplicationItem> {
                                 ),
                               ),
                               Text(
+                                prod.status,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blueAccent,
+                                ),
+                              ),
+                              Text(
                                 '${prod.quantity}x \$${prod.price}',
                                 style: TextStyle(
                                   fontSize: 18,

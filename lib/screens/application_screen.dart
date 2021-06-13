@@ -18,7 +18,7 @@ class ApplicationScreen extends StatelessWidget {
       ),
       drawer: AppDrawer(),
       body: FutureBuilder(
-        future: Provider.of<Application>(context, listen: false).fetchAndSetOrders(),
+        future: Provider.of<Application>(context, listen: false).fetchAndSetApplication(),
         builder: (ctx, dataSnapshot) {
           if (dataSnapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());

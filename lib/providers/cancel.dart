@@ -7,6 +7,7 @@ class Cancel with ChangeNotifier {
   final String id;
   final String name;
   final String houseno;
+  final String status;
   final String reasons;
   bool isFavorite;
 
@@ -14,6 +15,7 @@ class Cancel with ChangeNotifier {
     @required this.id,
     @required this.name,
     @required this.houseno,
+    @required this.status,
     @required this.reasons,
     this.isFavorite = false,
   });

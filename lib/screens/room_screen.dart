@@ -87,7 +87,7 @@ class _OrderButtonState extends State<OrderButton> {
               setState(() {
                 _isLoading = true;
               });
-              await Provider.of<Application>(context, listen: false).addOrder(
+              await Provider.of<Application>(context, listen: false).addApplication(
                 widget.room.items.values.toList(),
                 widget.room.totalAmount,
               );

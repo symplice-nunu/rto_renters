@@ -5,9 +5,10 @@ import '../providers/houses.dart';
 class UserCancelItem extends StatelessWidget {
   final String id;
   final String name;
+  final String status;
   
 
-  UserCancelItem(this.id, this.name);
+  UserCancelItem(this.id, this.name, this.status);
 
   @override
   Widget build(BuildContext context) {

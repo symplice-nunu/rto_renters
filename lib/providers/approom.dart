@@ -3,12 +3,14 @@ import 'package:flutter/foundation.dart';
 class AppRoom {
   final String id;
   final String houseno;
+  final String status;
   final int quantity;
   final double price;
 
   AppRoom({
     @required this.id,
     @required this.houseno,
+    @required this.status,
     @required this.quantity,
     @required this.price,
   });
@@ -27,8 +29,8 @@ class Room with ChangeNotifier {
 
   double get totalAmount {
     var total = 0.0;
-    _items.forEach((key, cartItem) {
-      total += cartItem.price * cartItem.quantity;
+    _items.forEach((key, roomItem) {
+      total += roomItem.price * roomItem.quantity;
     });
     return total;
   }
@@ -37,16 +39,18 @@ class Room with ChangeNotifier {
     String houseId,
     double price,
     String houseno,
+    String status,
   ) {
     if (_items.containsKey(houseId)) {
       // change quantity...
       _items.update(
         houseId,
-        (existingCartItem) => AppRoom(
-              id: existingCartItem.id,
-              houseno: existingCartItem.houseno,
-              price: existingCartItem.price,
-              quantity: existingCartItem.quantity + 1,
+        (existingRoomItem) => AppRoom(
+              id: existingRoomItem.id,
+              houseno: existingRoomItem.houseno,
+              status: existingRoomItem.status,
+              price: existingRoomItem.price,
+              quantity: existingRoomItem.quantity + 1,
             ),
       );
     } else {
@@ -55,6 +59,7 @@ class Room with ChangeNotifier {
         () => AppRoom(
               id: DateTime.now().toString(),
               houseno: houseno,
+              status: status,
               price: price,
               quantity: 1,
             ),
@@ -75,11 +80,12 @@ class Room with ChangeNotifier {
     if (_items[houseId].quantity > 1) {
       _items.update(
           houseId,
-          (existingCartItem) => AppRoom(
-                id: existingCartItem.id,
-                houseno: existingCartItem.houseno,
-                price: existingCartItem.price,
-                quantity: existingCartItem.quantity - 1,
+          (existingRoomItem) => AppRoom(
+                id: existingRoomItem.id,
+                houseno: existingRoomItem.houseno,
+                status: existingRoomItem.status,
+                price: existingRoomItem.price,
+                quantity: existingRoomItem.quantity - 1,
               ));
     } else {
       _items.remove(houseId);

@@ -140,6 +140,7 @@ class Houses with ChangeNotifier {
           id: prodId,
           name: prodData['name'],
           houseno: prodData['houseno'],
+          status: prodData['status'],
           reasons: prodData['reasons'],
           isFavorite:
               favoriteData == null ? false : favoriteData[prodId] ?? false,
@@ -206,6 +207,7 @@ class Houses with ChangeNotifier {
         body: json.encode({
           'name': cancel.name,
           'houseno': cancel.houseno,
+          'status' : "Pending....",
           'reasons': cancel.reasons,
           'creatorId': userId,
         }),
@@ -213,6 +215,7 @@ class Houses with ChangeNotifier {
       final newProduct = Cancel(
         name: cancel.name,
         houseno: cancel.houseno,
+        status: cancel.status,
         reasons: cancel.reasons,
         id: json.decode(response.body)['name'],
       );
