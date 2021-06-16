@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import '../screens/user_cancels_screen.dart';
+import '../screens/home.dart';
 
-class SecondPage extends StatelessWidget {
+class PaymentNotification extends StatelessWidget {
   final String payload;
 
-  const SecondPage({
+  const PaymentNotification({
     @required this.payload,
     Key key,
   }) : super(key: key);
@@ -20,7 +20,7 @@ class SecondPage extends StatelessWidget {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Text(
-                'Cancel Rent Agrement',
+                'House Payment',
                 style: TextStyle(
                   color: Colors.teal,
                   fontSize: 25,
@@ -39,7 +39,7 @@ class SecondPage extends StatelessWidget {
                   width: double.infinity,
                   child: Text(
                 
-                    'Your request to cancel house rent agreement was sent successfuly. wait response from house owner.',
+                    'Your monthly house Payment of 350 USD to House Owner has been completed successfuly. Thank you for using Credit Card',
                     
                     style: TextStyle(
                       fontSize: 17,
@@ -51,22 +51,7 @@ class SecondPage extends StatelessWidget {
                   
                 ),
                 const SizedBox(height: 10),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  width: double.infinity,
-                  child: Text(
                 
-                    'If house owner accepted your request, you will receive notification that your request confirmed.',
-                    
-                    style: TextStyle(
-                      fontSize: 17,
-                      color: Colors.black,
-                    ),
-                    textAlign: TextAlign.center,
-                    softWrap: true,
-                  ),
-                  
-                ),
               
               const SizedBox(height: 24),
               Divider(),
@@ -83,7 +68,7 @@ class SecondPage extends StatelessWidget {
                 
                 ),
                 onPressed: () {
-                  Navigator.pushNamed(context, UserCancelsScreen.routeName);
+                  Navigator.pushNamed(context, HomePage.routeName);
                 }
                 
               ),

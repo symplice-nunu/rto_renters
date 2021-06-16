@@ -408,45 +408,45 @@ class _EditHouseScreenState extends State<EditHouseScreen> {
                             isFavorite: _editedHouse.isFavorite);
                       },
                     ),
-                    TextFormField(
-                      initialValue: _initValues['price'],
-                      decoration: InputDecoration(labelText: 'Price'),
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.number,
-                      focusNode: _priceFocusNode,
-                      onFieldSubmitted: (_) {
-                        FocusScope.of(context)
-                            .requestFocus(_descriptionFocusNode);
-                      },
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter a price.';
-                        }
-                        if (double.tryParse(value) == null) {
-                          return 'Please enter a valid number.';
-                        }
-                        if (double.parse(value) <= 0) {
-                          return 'Please enter a number greater than zero.';
-                        }
-                        return null;
-                      },
-                      onSaved: (value) {
-                        _editedHouse = House(
-                            villagename: _editedHouse.villagename,
-                            houseno: _editedHouse.houseno,
-                            roomno: _editedHouse.roomno,
-                            saloonno: _editedHouse.saloonno,
-                            tbno: _editedHouse.tbno,
-                            kitchenno: _editedHouse.kitchenno,
-                            ehouseno: _editedHouse.ehouseno,
-                            houselocation: _editedHouse.houselocation,
-                            price: double.parse(value),
-                            housedescription: _editedHouse.housedescription,
-                            imageUrl: _editedHouse.imageUrl,
-                            id: _editedHouse.id,
-                            isFavorite: _editedHouse.isFavorite);
-                      },
-                    ),
+                    // TextFormField(
+                    //   initialValue: _initValues['price'],
+                    //   decoration: InputDecoration(labelText: 'Price'),
+                    //   textInputAction: TextInputAction.next,
+                    //   keyboardType: TextInputType.number,
+                    //   focusNode: _priceFocusNode,
+                    //   onFieldSubmitted: (_) {
+                    //     FocusScope.of(context)
+                    //         .requestFocus(_descriptionFocusNode);
+                    //   },
+                    //   validator: (value) {
+                    //     if (value.isEmpty) {
+                    //       return 'Please enter a price.';
+                    //     }
+                    //     if (double.tryParse(value) == null) {
+                    //       return 'Please enter a valid number.';
+                    //     }
+                    //     if (double.parse(value) <= 0) {
+                    //       return 'Please enter a number greater than zero.';
+                    //     }
+                    //     return null;
+                    //   },
+                    //   onSaved: (value) {
+                    //     _editedHouse = House(
+                    //         villagename: _editedHouse.villagename,
+                    //         houseno: _editedHouse.houseno,
+                    //         roomno: _editedHouse.roomno,
+                    //         saloonno: _editedHouse.saloonno,
+                    //         tbno: _editedHouse.tbno,
+                    //         kitchenno: _editedHouse.kitchenno,
+                    //         ehouseno: _editedHouse.ehouseno,
+                    //         houselocation: _editedHouse.houselocation,
+                    //         price: double.parse(value),
+                    //         housedescription: _editedHouse.housedescription,
+                    //         imageUrl: _editedHouse.imageUrl,
+                    //         id: _editedHouse.id,
+                    //         isFavorite: _editedHouse.isFavorite);
+                    //   },
+                    // ),
                     TextFormField(
                       initialValue: _initValues['housedescription'],
                       decoration: InputDecoration(labelText: 'House Description'),

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:rto_renters/services/payment_service.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:rto_renters/widgets/app_drawer.dart';
-// import './existing_card.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import '../local_notications_helper.dart';
+import '../page/Bail_payment_notification.dart';
 
 class HomeePage extends StatefulWidget {
   static const routeName = '/user-creditcard';
@@ -13,6 +15,7 @@ class HomeePage extends StatefulWidget {
 }
 
 class HomeePageState extends State<HomeePage> {
+  final notifications = FlutterLocalNotificationsPlugin();
   onItemPress(BuildContext context, int index) async {
     switch(index) {
       case 0:
@@ -33,7 +36,7 @@ class HomeePageState extends State<HomeePage> {
     );
     await dialog.show();
     var response = await StripeService.payWithNewCard(
-      amount: '15000',
+      amount: '350',
       currency: 'USD'
     );
     await dialog.hide();
@@ -43,14 +46,28 @@ class HomeePageState extends State<HomeePage> {
         duration: new Duration(milliseconds: response.success == true ? 1200 : 3000),
       )
     );
+    showOngoingNotification(notifications,
+                  title: 'Bail Payment', body: 'Your Bail Payment of 350 USD to House Owner has been completed successfuly.');
+      
   }
 
   @override
   void initState() {
     super.initState();
     StripeService.init();
-  }
+      final settingsAndroid = AndroidInitializationSettings('app_icon');
+    final settingsIOS = IOSInitializationSettings(
+        onDidReceiveLocalNotification: (id, title, body, payload) =>
+            onSelectNotification(payload));
 
+    notifications.initialize(
+        InitializationSettings(settingsAndroid, settingsIOS),
+        onSelectNotification: onSelectNotification);
+  }
+  Future onSelectNotification(String payload) async => await Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => BailPaymentNotification(payload: payload)),
+      );
   @override
   Widget build(BuildContext context) {
      

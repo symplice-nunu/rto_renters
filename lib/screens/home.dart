@@ -3,6 +3,9 @@ import 'package:rto_renters/services/payment_service.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:rto_renters/widgets/app_drawer.dart';
 import './existing_card.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import '../local_notications_helper.dart';
+import '../page/payment_notification.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/user-credcard';
@@ -13,6 +16,9 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
+  
+  final notifications = FlutterLocalNotificationsPlugin();
+  
   onItemPress(BuildContext context, int index) async {
     switch(index) {
       case 0:
@@ -33,7 +39,7 @@ class HomePageState extends State<HomePage> {
     );
     await dialog.show();
     var response = await StripeService.payWithNewCard(
-      amount: '15000',
+      amount: '350',
       currency: 'USD'
     );
     await dialog.hide();
@@ -43,13 +49,29 @@ class HomePageState extends State<HomePage> {
         duration: new Duration(milliseconds: response.success == true ? 1200 : 3000),
       )
     );
+    showOngoingNotification(notifications,
+                  title: 'Monthly Payment', body: 'Your monthly house Payment of 350 USD to House Owner has been completed successfuly.');
+                 
   }
 
-  @override
+   @override
   void initState() {
     super.initState();
     StripeService.init();
+      final settingsAndroid = AndroidInitializationSettings('app_icon');
+    final settingsIOS = IOSInitializationSettings(
+        onDidReceiveLocalNotification: (id, title, body, payload) =>
+            onSelectNotification(payload));
+
+    notifications.initialize(
+        InitializationSettings(settingsAndroid, settingsIOS),
+        onSelectNotification: onSelectNotification);
   }
+  Future onSelectNotification(String payload) async => await Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => PaymentNotification(payload: payload)),
+      );
+  
 
   @override
   Widget build(BuildContext context) {
@@ -93,6 +115,7 @@ class HomePageState extends State<HomePage> {
             return InkWell(
               onTap: () {
                 onItemPress(context, index);
+                
               },
               child: ListTile(
                 title: text,

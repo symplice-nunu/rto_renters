@@ -2,10 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:rto_renters/providers/payments.dart';
 
 import '../models/http_exception.dart';
 import './house.dart';
 import './cancel.dart';
+import './payments.dart';
 
 class Houses with ChangeNotifier {
   List<House> _items = [
@@ -45,11 +47,14 @@ class Houses with ChangeNotifier {
   List<Cancel> _itemss = [
 
   ];
+  List<Payments> _itemsss = [
+
+  ];
   // var _showFavoritesOnly = false;
   final String authToken;
   final String userId;
 
-  Houses(this.authToken, this.userId, this._items, this._itemss);
+  Houses(this.authToken, this.userId, this._items, this._itemss, this._itemsss);
 
   List<House> get items {
     // if (_showFavoritesOnly) {
@@ -60,6 +65,10 @@ class Houses with ChangeNotifier {
   List<Cancel> get itemss {
 
     return [..._itemss];
+  }
+  List<Payments> get itemsss {
+
+    return [..._itemsss];
   }
 
   List<House> get favoriteItems {
@@ -74,6 +83,9 @@ class Houses with ChangeNotifier {
   }
   Cancel findByIdd(String id) {
     return _itemss.firstWhere((hous) => hous.id == id);
+  }
+  Payments findByIda(String id) {
+    return _itemsss.firstWhere((hous) => hous.id == id);
   }
 
   
@@ -142,6 +154,7 @@ class Houses with ChangeNotifier {
           houseno: prodData['houseno'],
           status: prodData['status'],
           reasons: prodData['reasons'],
+          date: prodData['date'],
           isFavorite:
               favoriteData == null ? false : favoriteData[prodId] ?? false,
         ));
@@ -171,7 +184,7 @@ class Houses with ChangeNotifier {
           'houselocation': house.houselocation,
           'housedescription': house.housedescription,
           'imageUrl': house.imageUrl,
-          'price': house.price,
+          'price': "350 USD",
           'creatorId': userId,
         }),
       );
@@ -201,6 +214,7 @@ class Houses with ChangeNotifier {
   Future<void> addCancel(Cancel cancel) async {
     final url =
         'https://rtotest-891ba-default-rtdb.firebaseio.com/cancelrents.json?auth=$authToken';
+        final dateTime = DateTime.now();
     try {
       final response = await http.post(
         url,
@@ -209,6 +223,7 @@ class Houses with ChangeNotifier {
           'houseno': cancel.houseno,
           'status' : "Pending....",
           'reasons': cancel.reasons,
+          'date': dateTime.toIso8601String(),
           'creatorId': userId,
         }),
       );
@@ -217,9 +232,44 @@ class Houses with ChangeNotifier {
         houseno: cancel.houseno,
         status: cancel.status,
         reasons: cancel.reasons,
+        date: cancel.date,
         id: json.decode(response.body)['name'],
       );
       _itemss.add(newProduct);
+      // _items.insert(0, newProduct); // at the start of the list
+      notifyListeners();
+    } catch (error) {
+      print(error);
+      throw error;
+    }
+  }
+Future<void> payMoney(Payments payment) async {
+    final url =
+        'https://rtotest-891ba-default-rtdb.firebaseio.com/payments.json?auth=$authToken';
+        final dateStamp = DateTime.now();
+    try {
+      final response = await http.post(
+        url,
+        body: json.encode({
+          'cardNumber': "4242424242424242",
+          'cardHolderName': "04/24",
+          'expiryDate' : "INTWARI",
+          'cvvCode': "424",
+          'amount': "350 USD",
+          'date': dateStamp.toIso8601String(),
+          'creatorId': userId,
+        }),
+      );
+      final newProduct = Payments(
+        cardNumber: payment.cardNumber,
+        cardHolderName: payment.cardHolderName,
+        expiryDate: payment.expiryDate,
+        cvvCode: payment.cvvCode,
+        amount: payment.amount,
+        date: payment.date,
+        id: json.decode(response.body)['name'],
+      );
+      _itemsss.add(newProduct);
       // _items.insert(0, newProduct); // at the start of the list
       notifyListeners();
     } catch (error) {

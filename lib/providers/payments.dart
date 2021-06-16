@@ -3,21 +3,23 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
-class Cancel with ChangeNotifier {
+class Payments with ChangeNotifier {
   final String id;
-  final String name;
-  final String houseno;
-  final String status;
-  final String reasons;
+  final String cardNumber;
+  final String expiryDate;
+  final String cardHolderName;
+  final String cvvCode;
+  final String amount;
   final String date;
   bool isFavorite;
 
-  Cancel({
+  Payments({
     @required this.id,
-    @required this.name,
-    @required this.houseno,
-    @required this.status,
-    @required this.reasons,
+    @required this.cardNumber,
+    @required this.expiryDate,
+    @required this.cardHolderName,
+    @required this.cvvCode,
+    @required this.amount,
     @required this.date,
     this.isFavorite = false,
   });

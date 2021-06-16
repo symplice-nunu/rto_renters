@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
-import 'package:rto_renters/page/second_page.dart';
-
+import '../page/second_page.dart';
 import '../local_notications_helper.dart';
 import '../providers/cancel.dart';
 import '../providers/houses.dart';
@@ -27,12 +26,14 @@ class _EditCancelScreenState extends State<EditCancelScreen> {
     houseno: '',
     status: '',
     reasons: '',
+    date: '',
   );
   var _initValues = {
     'name': '',
     'houseno': '',
     'status': '',
     'reasons': '',
+    'date': '',
   };
   var _isInit = true;
   var _isLoading = false;
@@ -108,6 +109,9 @@ class _EditCancelScreenState extends State<EditCancelScreen> {
       try {
         await Provider.of<Houses>(context, listen: false)
             .addCancel(_editedCancel);
+            showOngoingNotification(notifications,
+                  title: 'Cancel Rent Agreement', body: 'Your request to cancel house rent agreement was sent successfuly. wait response from house owner');
+          
       } catch (error) {
         await showDialog(
           context: context,
@@ -124,6 +128,7 @@ class _EditCancelScreenState extends State<EditCancelScreen> {
                 ],
               ),
         );
+               
       }
       // finally {
       //   setState(() {
@@ -152,7 +157,12 @@ class _EditCancelScreenState extends State<EditCancelScreen> {
           IconButton(
             icon: Icon(Icons.send_outlined),
             
-            onPressed: _saveForm,
+            onPressed: (){
+              _saveForm();
+            }
+            
+            
+            
              
           ),
         ],
@@ -186,6 +196,7 @@ class _EditCancelScreenState extends State<EditCancelScreen> {
                             houseno: _editedCancel.houseno,
                             status: _editedCancel.status,
                             reasons: _editedCancel.reasons,
+                            date: _editedCancel.date,
                             id: _editedCancel.id,
                             isFavorite: _editedCancel.isFavorite);
                       },
@@ -212,6 +223,7 @@ class _EditCancelScreenState extends State<EditCancelScreen> {
                             houseno: value,
                             status: _editedCancel.status,
                             reasons: _editedCancel.reasons,
+                            date: _editedCancel.date,
                             id: _editedCancel.id,
                             isFavorite: _editedCancel.isFavorite);
                       },
@@ -237,16 +249,21 @@ class _EditCancelScreenState extends State<EditCancelScreen> {
                             houseno: _editedCancel.houseno,
                             status: _editedCancel.status,
                             reasons: value,
+                            date: _editedCancel.date,
                           id: _editedCancel.id,
                           isFavorite: _editedCancel.isFavorite,
                         );
                       },
                     ),
-                   RaisedButton(
-              child: Text('Show notification'),
-              onPressed: () => showOngoingNotification(notifications,
-                  title: 'Tite', body: 'nono'),
-            ),
+            //        RaisedButton(
+            //   child: Text('Show notification'),
+            //   onPressed: () {
+            //     showOngoingNotification(notifications,
+            //       title: 'Tite', body: 'nono');
+            //       _saveForm();
+            //   }
+                  
+            // ),
                   ],
                 ),
               ),

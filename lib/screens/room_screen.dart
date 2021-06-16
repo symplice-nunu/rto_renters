@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import '../providers/approom.dart' show Room;
 import '../widgets/room_item.dart';
 import '../providers/houseapplication.dart';
+import '../local_notications_helper.dart';
+import '../page/application_notification.dart';
 
-class RoomScreen extends StatelessWidget {
+class RoomScreen extends StatefulWidget {
   static const routeName = '/room';
+@override
+  _EditRoomScreenState createState() => _EditRoomScreenState();
+}
 
+class _EditRoomScreenState extends State<RoomScreen> {
+  
+ 
   @override
   Widget build(BuildContext context) {
     final room = Provider.of<Room>(context);
@@ -77,12 +85,31 @@ class OrderButton extends StatefulWidget {
 class _OrderButtonState extends State<OrderButton> {
   var _isLoading = false;
 
+   final notifications = FlutterLocalNotificationsPlugin();
+  @override
+  void initState() {
+    super.initState();
+      final settingsAndroid = AndroidInitializationSettings('app_icon');
+    final settingsIOS = IOSInitializationSettings(
+        onDidReceiveLocalNotification: (id, title, body, payload) =>
+            onSelectNotification(payload));
+
+    notifications.initialize(
+        InitializationSettings(settingsAndroid, settingsIOS),
+        onSelectNotification: onSelectNotification);
+  }
+Future onSelectNotification(String payload) async => await Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ApplicationNotification(payload: payload)),
+      );
+
   @override
   Widget build(BuildContext context) {
     return FlatButton(
       child: _isLoading ? CircularProgressIndicator() : Text('APPLY'),
       onPressed: (widget.room.totalAmount <= 0 || _isLoading)
           ? null
+          
           : () async {
               setState(() {
                 _isLoading = true;
@@ -90,13 +117,17 @@ class _OrderButtonState extends State<OrderButton> {
               await Provider.of<Application>(context, listen: false).addApplication(
                 widget.room.items.values.toList(),
                 widget.room.totalAmount,
+                
               );
+              showOngoingNotification(notifications,
+                  title: 'House Application', body: 'Your application to rent house  was sent successfuly.');
               setState(() {
                 _isLoading = false;
               });
               widget.room.clear();
             },
       textColor: Theme.of(context).primaryColor,
+      
     );
   }
 }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import '../screens/user_cancels_screen.dart';
+import '../screens/application_screen.dart';
 
-class SecondPage extends StatelessWidget {
+class ApplicationNotification extends StatelessWidget {
   final String payload;
 
-  const SecondPage({
+  const ApplicationNotification({
     @required this.payload,
     Key key,
   }) : super(key: key);
@@ -20,7 +20,7 @@ class SecondPage extends StatelessWidget {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Text(
-                'Cancel Rent Agrement',
+                'House Application',
                 style: TextStyle(
                   color: Colors.teal,
                   fontSize: 25,
@@ -39,7 +39,7 @@ class SecondPage extends StatelessWidget {
                   width: double.infinity,
                   child: Text(
                 
-                    'Your request to cancel house rent agreement was sent successfuly. wait response from house owner.',
+                    'Your application to rent house  was sent successfuly. wait response from house owner to confirm your application.',
                     
                     style: TextStyle(
                       fontSize: 17,
@@ -56,7 +56,7 @@ class SecondPage extends StatelessWidget {
                   width: double.infinity,
                   child: Text(
                 
-                    'If house owner accepted your request, you will receive notification that your request confirmed.',
+                    'If house owner accepted your application, you will receive notification that your confirmed confirmed.',
                     
                     style: TextStyle(
                       fontSize: 17,
@@ -83,7 +83,7 @@ class SecondPage extends StatelessWidget {
                 
                 ),
                 onPressed: () {
-                  Navigator.pushNamed(context, UserCancelsScreen.routeName);
+                  Navigator.pushNamed(context, ApplicationScreen.routeName);
                 }
                 
               ),
