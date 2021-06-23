@@ -20,46 +20,46 @@ class UserHousesScreen extends StatelessWidget {
     print('rebuilding...');
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cancel Rent Agreement'),
+        title: const Text('Your Contract'),
         actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () {
-              Navigator.of(context).pushNamed(EditHouseScreen.routeName);
-            },
-          ),
+          // IconButton(
+          //   icon: const Icon(Icons.add),
+          //   onPressed: () {
+          //     Navigator.of(context).pushNamed(EditHouseScreen.routeName);
+          //   },
+          // ),
         ],
       ),
       drawer: AppDrawer(),
-      body: FutureBuilder(
-        future: _refreshHouses(context),
-        builder: (ctx, snapshot) =>
-            snapshot.connectionState == ConnectionState.waiting
-                ? Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : RefreshIndicator(
-                    onRefresh: () => _refreshHouses(context),
-                    child: Consumer<Houses>(
-                      builder: (ctx, housesData, _) => Padding(
-                            padding: EdgeInsets.all(8),
-                            child: ListView.builder(
-                              itemCount: housesData.items.length,
-                              itemBuilder: (_, i) => Column(
-                                    children: [
-                                      UserHouseItem(
-                                        housesData.items[i].id,
-                                        housesData.items[i].villagename,
-                                        housesData.items[i].imageUrl,
-                                      ),
-                                      Divider(),
-                                    ],
-                                  ),
-                            ),
-                          ),
-                    ),
-                  ),
-      ),
+      // body: FutureBuilder(
+      //   future: _refreshHouses(context),
+      //   builder: (ctx, snapshot) =>
+      //       snapshot.connectionState == ConnectionState.waiting
+      //           ? Center(
+      //               child: CircularProgressIndicator(),
+      //             )
+      //           : RefreshIndicator(
+      //               onRefresh: () => _refreshHouses(context),
+      //               child: Consumer<Houses>(
+      //                 builder: (ctx, housesData, _) => Padding(
+      //                       padding: EdgeInsets.all(8),
+      //                       child: ListView.builder(
+      //                         itemCount: housesData.items.length,
+      //                         itemBuilder: (_, i) => Column(
+      //                               children: [
+      //                                 UserHouseItem(
+      //                                   housesData.items[i].id,
+      //                                   housesData.items[i].villagename,
+      //                                   housesData.items[i].imageUrl,
+      //                                 ),
+      //                                 Divider(),
+      //                               ],
+      //                             ),
+      //                       ),
+      //                     ),
+      //               ),
+      //             ),
+      // ),
     );
   }
 }

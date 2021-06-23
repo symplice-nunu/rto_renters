@@ -147,7 +147,6 @@ class _EditCancelScreenState extends State<EditCancelScreen> {
         context,
         MaterialPageRoute(builder: (context) => SecondPage(payload: payload)),
       );
-      
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -156,14 +155,9 @@ class _EditCancelScreenState extends State<EditCancelScreen> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.send_outlined),
-            
             onPressed: (){
               _saveForm();
-            }
-            
-            
-            
-             
+            }  
           ),
         ],
       ),

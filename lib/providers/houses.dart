@@ -93,7 +93,7 @@ class Houses with ChangeNotifier {
   Future<void> fetchAndSetHouses([bool filterByUser = false]) async {
     final filterString = filterByUser ? 'orderBy="creatorId"&equalTo="$userId"' : '';
     var url =
-        'https://rtotest-891ba-default-rtdb.firebaseio.com/house.json?auth=$authToken&$filterString';
+        'https://house-6dc86-default-rtdb.firebaseio.com/houses.json?auth=$authToken&$filterString';
         // 'https://rent-to-own-6688f-default-rtdb.firebaseio.com/houses.json?auth=$authToken&$filterString';
     try {
       final response = await http.get(url);
@@ -102,7 +102,7 @@ class Houses with ChangeNotifier {
         return;
       }
       url =
-          'https://rtotest-891ba-default-rtdb.firebaseio.com/userFavorites/$userId.json?auth=$authToken';
+          'https://house-6dc86-default-rtdb.firebaseio.com/userFavorites/$userId.json?auth=$authToken';
           // 'https://rent-to-own-6688f-default-rtdb.firebaseio.com/userFavorites/$userId.json?auth=$authToken';
       final favoriteResponse = await http.get(url);
       final favoriteData = json.decode(favoriteResponse.body);
@@ -135,7 +135,7 @@ class Houses with ChangeNotifier {
   Future<void> fetchAndSetCancels([bool filterByUser = false]) async {
     final filterString = filterByUser ? 'orderBy="creatorId"&equalTo="$userId"' : '';
     var url =
-        'https://rtotest-891ba-default-rtdb.firebaseio.com/cancelrents.json?auth=$authToken&$filterString';
+        'https://house-6dc86-default-rtdb.firebaseio.com/cancelrents.json?auth=$authToken&$filterString';
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
@@ -143,7 +143,7 @@ class Houses with ChangeNotifier {
         return;
       }
       url =
-          'https://rtotest-891ba-default-rtdb.firebaseio.com/userFavorites/$userId.json?auth=$authToken';
+          'https://house-6dc86-default-rtdb.firebaseio.com/userFavorites/$userId.json?auth=$authToken';
       final favoriteResponse = await http.get(url);
       final favoriteData = json.decode(favoriteResponse.body);
       final List<Cancel> loadedCancels = [];
@@ -168,7 +168,7 @@ class Houses with ChangeNotifier {
 
   Future<void> addHouse(House house) async {
     final url =
-        'https://rtotest-891ba-default-rtdb.firebaseio.com/house.json?auth=$authToken';
+        'https://house-6dc86-default-rtdb.firebaseio.com/houses.json?auth=$authToken';
         //  'https://rent-to-own-6688f-default-rtdb.firebaseio.com/houses.json?auth=$authToken';
     try {
       final response = await http.post(
@@ -213,7 +213,7 @@ class Houses with ChangeNotifier {
 
   Future<void> addCancel(Cancel cancel) async {
     final url =
-        'https://rtotest-891ba-default-rtdb.firebaseio.com/cancelrents.json?auth=$authToken';
+        'https://house-6dc86-default-rtdb.firebaseio.com/cancelrents.json?auth=$authToken';
         final dateTime = DateTime.now();
     try {
       final response = await http.post(
@@ -245,7 +245,7 @@ class Houses with ChangeNotifier {
   }
 Future<void> payMoney(Payments payment) async {
     final url =
-        'https://rtotest-891ba-default-rtdb.firebaseio.com/payments.json?auth=$authToken';
+        'https://house-6dc86-default-rtdb.firebaseio.com/payments.json?auth=$authToken';
         final dateStamp = DateTime.now();
     try {
       final response = await http.post(
@@ -283,7 +283,7 @@ Future<void> payMoney(Payments payment) async {
     final prodIndex = _items.indexWhere((prod) => prod.id == id);
     if (prodIndex >= 0) {
       final url =
-          'https://rtotest-891ba-default-rtdb.firebaseio.com/house/$id.json?auth=$authToken';
+          'https://house-6dc86-default-rtdb.firebaseio.com/houses/$id.json?auth=$authToken';
           // 'https://rent-to-own-6688f-default-rtdb.firebaseio.com/houses/$id.json?auth=$authToken';
       await http.patch(url,
           body: json.encode({
@@ -310,7 +310,7 @@ Future<void> payMoney(Payments payment) async {
     final prodIndex = _items.indexWhere((prod) => prod.id == id);
     if (prodIndex >= 0) {
       final url =
-          'https://rtotest-891ba-default-rtdb.firebaseio.com/cancelrents/$id.json?auth=$authToken';
+          'https://house-6dc86-default-rtdb.firebaseio.com/cancelrents/$id.json?auth=$authToken';
       await http.patch(url,
           body: json.encode({
             'name': newCancel.name,
@@ -326,7 +326,7 @@ Future<void> payMoney(Payments payment) async {
 
   Future<void> deleteHouse(String id) async {
     final url =
-        'https://rtotest-891ba-default-rtdb.firebaseio.com/house/$id.json?auth=$authToken';
+        'https://house-6dc86-default-rtdb.firebaseio.com/houses/$id.json?auth=$authToken';
         // 'https://rent-to-own-6688f-default-rtdb.firebaseio.com/houses/$id.json?auth=$authToken';
     final existingHouseIndex = _items.indexWhere((prod) => prod.id == id);
     var existingHouse = _items[existingHouseIndex];
@@ -343,7 +343,7 @@ Future<void> payMoney(Payments payment) async {
 
   Future<void> deleteCancel(String id) async {
     final url =
-        'https://rtotest-891ba-default-rtdb.firebaseio.com/cancelrents/$id.json?auth=$authToken';
+        'https://house-6dc86-default-rtdb.firebaseio.com/cancelrents/$id.json?auth=$authToken';
     final existingCancelIndex = _itemss.indexWhere((prod) => prod.id == id);
     var existingCancel = _itemss[existingCancelIndex];
     _items.removeAt(existingCancelIndex);

@@ -21,11 +21,7 @@ class HomeePageState extends State<HomeePage> {
       case 0:
         payViaNewCard(context);
         break;
-      // case 1:
-      //   Navigator.pushNamed(context, ExistingCardPage.routeName);
-        
-       
-      //   break;
+      
     }
   }
 
@@ -76,18 +72,7 @@ class HomeePageState extends State<HomeePage> {
       appBar: AppBar(
         title: Text('Bail Payment'),
       ),
-      
-      // appBar: AppBar(
-      //   title: const Text('Your Credit Card'),
-      //   actions: <Widget>[
-      //     IconButton(
-      //       icon: const Icon(Icons.add),
-      //       onPressed: () {
-      //         // Navigator.of(context).pushNamed(EditHouseScreen.routeName);
-      //       },
-      //     ),
-      //   ],
-      // ),
+     
       drawer: AppDrawer(),
       body: Container(
         padding: EdgeInsets.all(20),
@@ -101,10 +86,7 @@ class HomeePageState extends State<HomeePage> {
                 icon = Icon(Icons.add_circle, color: theme.primaryColor);
                 text = Text('Pay via new card');
                 break;
-              // case 1:
-              //   icon = Icon(Icons.credit_card, color: theme.primaryColor);
-              //   text = Text('Pay via existing card');
-              //   break;
+             
             }
 
             return InkWell(

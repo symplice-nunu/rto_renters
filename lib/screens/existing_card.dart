@@ -36,6 +36,7 @@ class ExistingCardPageState extends State<ExistingCardPage> {
     amount: '',
     date: '',
   );
+  // ignore: unused_field
   var _initValues = {
     'cardNumber': '',
     'cardHolderName': '',
@@ -46,6 +47,7 @@ class ExistingCardPageState extends State<ExistingCardPage> {
   };
   
   var _isInit = true;
+  // ignore: unused_field
   var _isLoading = false;
 
   
@@ -193,6 +195,8 @@ class ExistingCardPageState extends State<ExistingCardPage> {
       });
       showOngoingNotification(notifications,
                   title: 'Monthly Payment', body: 'Your monthly house Payment of 350 USD to House Owner has been completed successfuly.');
+
+                  _saveForm();
                  
   }
 
@@ -211,7 +215,7 @@ class ExistingCardPageState extends State<ExistingCardPage> {
             return InkWell(
               onTap: () {
                 payViaExistingCard(context, card);
-                _saveForm();
+                
               },
               child: CreditCardWidget(
                 cardNumber: card['cardNumber'],
