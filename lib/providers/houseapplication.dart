@@ -62,6 +62,71 @@ class Application with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> fetchAndSetPayments() async {
+    final url = 'https://house-6dc86-default-rtdb.firebaseio.com/monthlypayment/$userId.json?auth=$authToken';
+    final response = await http.get(url);
+    final List<HouseApplication> loadedOrders = [];
+    final extractedData = json.decode(response.body) as Map<String, dynamic>;
+    if (extractedData == null) {
+      return;
+    }
+    extractedData.forEach((orderId, orderData) {
+      loadedOrders.add(
+        HouseApplication(
+          id: orderId,
+          amount: orderData['amount'],
+          dateTime: DateTime.parse(orderData['dateTime']),
+          houses: (orderData['houses'] as List<dynamic>)
+              .map(
+                (item) => AppRoom(
+                      id: item['id'],
+                      price: item['price'],
+                      quantity: item['quantity'],
+                      houseno: item['houseno'],
+                      status: item['status'],
+                    ),
+              )
+              .toList(),
+        ),
+      );
+    });
+    _orders = loadedOrders.reversed.toList();
+    notifyListeners();
+  }
+
+Future<void> fetchAndSetBail() async {
+    final url = 'https://house-6dc86-default-rtdb.firebaseio.com/bailpayment/$userId.json?auth=$authToken';
+    final response = await http.get(url);
+    final List<HouseApplication> loadedOrders = [];
+    final extractedData = json.decode(response.body) as Map<String, dynamic>;
+    if (extractedData == null) {
+      return;
+    }
+    extractedData.forEach((orderId, orderData) {
+      loadedOrders.add(
+        HouseApplication(
+          id: orderId,
+          amount: orderData['amount'],
+          dateTime: DateTime.parse(orderData['dateTime']),
+          houses: (orderData['houses'] as List<dynamic>)
+              .map(
+                (item) => AppRoom(
+                      id: item['id'],
+                      price: item['price'],
+                      quantity: item['quantity'],
+                      houseno: item['houseno'],
+                      status: item['status'],
+                    ),
+              )
+              .toList(),
+        ),
+      );
+    });
+    _orders = loadedOrders.reversed.toList();
+    notifyListeners();
+  }
+
+
   Future<void> addApplication(List<AppRoom> roomHouses, double total) async {
     final url = 'https://house-6dc86-default-rtdb.firebaseio.com/houseapplication/$userId.json?auth=$authToken';
     final timestamp = DateTime.now();

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rto_renters/screens/homee.dart';
 import '../screens/application_screen.dart';
+import '../screens/monthly_payment_screen.dart';
+import '../screens/bail_payment_screen.dart';
 import '../screens/user_houses_screen.dart';
 import '../screens/user_cancels_screen.dart';
 import '../screens/home.dart';
@@ -48,12 +50,24 @@ class AppDrawer extends StatelessWidget {
           ),
           Divider(),
          
+         
           ListTile(
             leading: Icon(Icons.view_column),
-            title: Text('View Contract'),
+            title: Text('View Bail Payment'),
             onTap: () {
               Navigator.of(context)
-                  .pushReplacementNamed(UserHousesScreen.routeName);
+                  .pushReplacementNamed(BailPaymentScreen.routeName);
+              
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.view_column),
+            title: Text('View Monthly Payments'),
+            onTap: () {
+              Navigator.of(context)
+                  .pushReplacementNamed(MonthlyPaymentScreen.routeName);
+              
             },
           ),
           Divider(),

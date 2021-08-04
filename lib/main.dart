@@ -11,6 +11,8 @@ import './providers/approom.dart';
 import './providers/houseapplication.dart';
 import './providers/auth.dart';
 import './screens/application_screen.dart';
+import './screens/bail_payment_screen.dart';
+import './screens/monthly_payment_screen.dart';
 import 'screens/user_houses_screen.dart';
 import 'screens/user_cancels_screen.dart';
 import 'screens/home.dart';
@@ -81,7 +83,9 @@ class MyApp extends StatelessWidget {
           routes: {
             HouseDetailScreen.routeName: (ctx) => HouseDetailScreen(),
             RoomScreen.routeName: (ctx) => RoomScreen(),
-            ApplicationScreen.routeName: (ctx) => ApplicationScreen(),
+            ApplicationScreen.routeName: (ctx) => ApplicationScreen(),           
+            BailPaymentScreen.routeName: (ctx) => BailPaymentScreen(),
+            MonthlyPaymentScreen.routeName: (ctx) => MonthlyPaymentScreen(),
             UserHousesScreen.routeName: (ctx) => UserHousesScreen(),
             UserCancelsScreen.routeName: (ctx) => UserCancelsScreen(),
             ExistingCardPage.routeName: (ctx) => ExistingCardPage(),
