@@ -57,7 +57,7 @@ class HouseItem extends StatelessWidget {
               Icons.house_siding,
             ),
             onPressed: () {
-              room.addItem(house.id, house.price, house.houseno, house.villagename);
+              room.addItem(house.id, house.price, house.houseno, house.villagename, house.houselocation, house.ehouseno, house.housedescription, house.houselocation, house.roomno, house.kitchenno, house.saloonno, house.imageUrl, house.tbno);
               Scaffold.of(context).hideCurrentSnackBar();
               Scaffold.of(context).showSnackBar(
                 SnackBar(

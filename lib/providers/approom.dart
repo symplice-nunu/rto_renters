@@ -6,6 +6,20 @@ class AppRoom {
   final String status;
   final int quantity;
   final double price;
+  final String co;
+  final String pai;
+  final String pai1;
+  final String pai2;
+  final String at;
+  final String at1;
+  final String name;
+  final String jobTtitle;
+  final String company;
+  // final String salary;
+  // final String country;
+  // final String martalStatus;
+  // final String age;
+  // final String gender;
 
   AppRoom({
     @required this.id,
@@ -13,6 +27,20 @@ class AppRoom {
     @required this.status,
     @required this.quantity,
     @required this.price,
+    @required this.co,
+    @required this.pai,
+    @required this.pai1,
+    @required this.pai2,
+    @required this.at,
+    @required this.at1,
+    @required this.name,
+    @required this.jobTtitle,
+    @required this.company,
+    // @required this.salary,
+    // @required this.country,
+    // @required this.martalStatus,
+    // @required this.age,
+    // @required this.gender,
   });
 }
 
@@ -40,29 +68,70 @@ class Room with ChangeNotifier {
     double price,
     String houseno,
     String status,
+    String pai,
+    String pai1,
+    String pai2,
+    String at,
+    String at1,
+    String name,
+    String co,
+    String jobTtitle,
+    String company,
+    // String salary,
+    // String country,
+    // String martalStatus,
+    // String age,
+    // String gender,
   ) {
     if (_items.containsKey(houseId)) {
-      // change quantity...
       _items.update(
         houseId,
         (existingRoomItem) => AppRoom(
-              id: existingRoomItem.id,
-              houseno: existingRoomItem.houseno,
-              status: existingRoomItem.status,
-              price: existingRoomItem.price,
-              quantity: existingRoomItem.quantity + 1,
-            ),
+          id: existingRoomItem.id,
+          houseno: existingRoomItem.houseno,
+          status: existingRoomItem.status,
+          pai: existingRoomItem.pai,
+          pai1: existingRoomItem.pai1,
+          pai2: existingRoomItem.pai2,
+          at: existingRoomItem.at,
+          at1: existingRoomItem.at1,
+          name: existingRoomItem.name,
+          co: existingRoomItem.co,
+          jobTtitle: existingRoomItem.jobTtitle,
+          company: existingRoomItem.company,
+          // salary: existingRoomItem.salary,
+          // country: existingRoomItem.country,
+          // martalStatus: existingRoomItem.martalStatus,
+          // age: existingRoomItem.age,
+          // gender: existingRoomItem.gender,
+          price: existingRoomItem.price,
+          quantity: existingRoomItem.quantity + 1,
+        ),
       );
     } else {
       _items.putIfAbsent(
         houseId,
         () => AppRoom(
-              id: DateTime.now().toString(),
-              houseno: houseno,
-              status: status,
-              price: price,
-              quantity: 1,
-            ),
+          id: DateTime.now().toString(),
+          houseno: houseno,
+          status: status,
+          price: price,
+          quantity: 1,
+          pai: pai,
+          pai1: pai1,
+          pai2: pai2,
+          at: at,
+          at1: at1,
+          name: name,
+          co: co,
+          jobTtitle: jobTtitle,
+          company: company,
+          // salary: salary,
+          // country: country,
+          // martalStatus: martalStatus,
+          // age: age,
+          // gender: gender,
+        ),
       );
     }
     notifyListeners();
@@ -86,6 +155,20 @@ class Room with ChangeNotifier {
                 status: existingRoomItem.status,
                 price: existingRoomItem.price,
                 quantity: existingRoomItem.quantity - 1,
+                pai: existingRoomItem.pai,
+                pai1: existingRoomItem.pai1,
+                pai2: existingRoomItem.pai2,
+                at: existingRoomItem.at,
+                at1: existingRoomItem.at1,
+                name: existingRoomItem.name,
+                co: existingRoomItem.co,
+                jobTtitle: existingRoomItem.jobTtitle,
+                company: existingRoomItem.company,
+                // salary: existingRoomItem.salary,
+                // country: existingRoomItem.country,
+                // martalStatus: existingRoomItem.martalStatus,
+                // age: existingRoomItem.age,
+                // gender: existingRoomItem.gender,
               ));
     } else {
       _items.remove(houseId);
