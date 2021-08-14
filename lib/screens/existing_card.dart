@@ -155,14 +155,14 @@ class ExistingCardPageState extends State<ExistingCardPage> {
     {
       'cardNumber': '4242424242424242',
       'expiryDate': '04/24',
-      'cardHolderName': 'INTWARI',
+      'cardHolderName': 'INTWARI Symplice',
       'cvvCode': '424',
       'showBackView': false,
     },
     {
       'cardNumber': '5555555555554444',
       'expiryDate': '04/23',
-      'cardHolderName': 'Symplice',
+      'cardHolderName': 'INTWARI Symplice',
       'cvvCode': '123',
       'showBackView': false,
     }
