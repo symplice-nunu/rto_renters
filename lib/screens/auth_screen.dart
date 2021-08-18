@@ -252,6 +252,7 @@ class _AuthCardState extends State<AuthCard>
                     _authData['email'] = value;
                   },
                 ),
+                
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Password'),
                   obscureText: true,
@@ -277,7 +278,9 @@ class _AuthCardState extends State<AuthCard>
                     opacity: _opacityAnimation,
                     child: SlideTransition(
                       position: _slideAnimation,
-                      child: TextFormField(
+                      
+                      child: 
+                      TextFormField(
                         enabled: _authMode == AuthMode.Signup,
                         decoration:
                             InputDecoration(labelText: 'Confirm Password'),

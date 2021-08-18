@@ -15,6 +15,8 @@ import './screens/bail_payment_screen.dart';
 import './screens/monthly_payment_screen.dart';
 import 'screens/user_houses_screen.dart';
 import 'screens/user_cancels_screen.dart';
+import 'screens/person_details_screen.dart';
+import 'screens/edit_person_screen.dart';
 import 'screens/home.dart';
 import 'screens/add_credit_card.dart';
 import 'screens/existing_card.dart';
@@ -39,7 +41,7 @@ class MyApp extends StatelessWidget {
             auth.token,
             auth.userId,
             previousProducts == null ? [] : previousProducts.items,
-            previousProducts == null ? [] : previousProducts.itemss, 
+            previousProducts == null ? [] : previousProducts.itemss,
             previousProducts == null ? [] : previousProducts.itemsss,
           ),
         ),
@@ -73,21 +75,23 @@ class MyApp extends StatelessWidget {
           home: auth.isAuth
               ? HousesOverviewScreen()
               : FutureBuilder(
-            future: auth.tryAutoLogin(),
-            builder: (ctx, authResultSnapshot) =>
-            authResultSnapshot.connectionState ==
-                ConnectionState.waiting
-                ? SplashScreen()
-                : AuthScreen(),
-          ),
+                  future: auth.tryAutoLogin(),
+                  builder: (ctx, authResultSnapshot) =>
+                      authResultSnapshot.connectionState ==
+                              ConnectionState.waiting
+                          ? SplashScreen()
+                          : AuthScreen(),
+                ),
           routes: {
             HouseDetailScreen.routeName: (ctx) => HouseDetailScreen(),
             RoomScreen.routeName: (ctx) => RoomScreen(),
-            ApplicationScreen.routeName: (ctx) => ApplicationScreen(),           
+            ApplicationScreen.routeName: (ctx) => ApplicationScreen(),
             BailPaymentScreen.routeName: (ctx) => BailPaymentScreen(),
             MonthlyPaymentScreen.routeName: (ctx) => MonthlyPaymentScreen(),
             UserHousesScreen.routeName: (ctx) => UserHousesScreen(),
+            EditPersonScreen.routeName: (ctx) => EditPersonScreen(),
             UserCancelsScreen.routeName: (ctx) => UserCancelsScreen(),
+            PersonDetailsScreen.routeName: (ctx) => PersonDetailsScreen(),
             ExistingCardPage.routeName: (ctx) => ExistingCardPage(),
             MySampleAddCreditCard.routeName: (ctx) => MySampleAddCreditCard(),
             HomePage.routeName: (ctx) => HomePage(),

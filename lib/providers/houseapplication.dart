@@ -155,48 +155,8 @@ Future<void> fetchAndSetBail() async {
   }
 
 
-  // Future<void> addApplication(List<AppRoom> roomHouses, double total) async {
-  //   final url = 'https://house-6dc86-default-rtdb.firebaseio.com/houseapplication/$userId.json?auth=$authToken';
-  //   final timestamp = DateTime.now();
-  //   final response = await http.post(
-  //     url,
-  //     body: json.encode({
-  //       'amount': total,
-  //       'dateTime': timestamp.toIso8601String(),
-  //       'houses': roomHouses
-  //           .map((cp) => {
-  //                 'id': cp.id,
-  //                 'houseno': cp.houseno,
-  //                 'status': "Applied",
-  //                 'pai': "We have to make an Agreement on",
-  //                 'pai1': "Tuesday or Thursday, we will be",
-  //                 'pai2': "available on our office.",
-  //                 'co': "Contract",
-  //                 'at': "Address:  KK 36 st",
-  //                 'at1': "08:00 am to 04:30 pm",
-  //                 'quantity': cp.quantity,
-  //                 'price': cp.price,
-  //                 'name': "Anne Marie",
-  //                 'jobTtitle': "Coach, Salary: 900 000 Frw.",
-  //                 'company': "RWANDA Team",
-                  
-  //               })
-  //           .toList(),
-  //     }),
-  //   );
-  //   _orders.insert(
-  //     0,
-  //     HouseApplication(
-  //       id: json.decode(response.body)['name'],
-  //       amount: total,
-  //       dateTime: timestamp,
-  //       houses: roomHouses,
-  //     ),
-  //   );
-  //   notifyListeners();
-  // }
   Future<void> addApplication(List<AppRoom> roomHouses, double total) async {
-    final url = 'https://house-6dc86-default-rtdb.firebaseio.com/monthlypayment/$userId.json?auth=$authToken';
+    final url = 'https://house-6dc86-default-rtdb.firebaseio.com/houseapplication/$userId.json?auth=$authToken';
     final timestamp = DateTime.now();
     final response = await http.post(
       url,
@@ -207,20 +167,19 @@ Future<void> fetchAndSetBail() async {
             .map((cp) => {
                   'id': cp.id,
                   'houseno': cp.houseno,
-                  'status': "Paid",
-                  'pai': "Thank you, You have been paid bail",
-                  'pai1': "for the first month.",
-                  'pai2': " ",
-                  'co': "Payment made",
-                  'at': "Rent to own",
-                  'at1': "KK 36 St",
+                  'status': "Applied",
+                  'pai': "We have to make an Agreement on",
+                  'pai1': "Tuesday or Thursday, we will be",
+                  'pai2': "available on our office.",
+                  'co': "Contract",
+                  'at': "Address:  KK 36 st",
+                  'at1': "08:00 am to 04:30 pm",
                   'quantity': cp.quantity,
                   'price': cp.price,
-                  'name': "MUTESI Aline",
-                  'jobTtitle': "4242********4242",
-                  // 'name': "INTWARI Symplice",
-                  // 'jobTtitle': "5555********4444",
-                  'company': "EN",
+                  'name': "Anne Marie",
+                  'jobTtitle': "Coach, Salary: 900 000 Frw.",
+                  'company': "RWANDA Team",
+                  
                 })
             .toList(),
       }),
@@ -236,4 +195,45 @@ Future<void> fetchAndSetBail() async {
     );
     notifyListeners();
   }
+  // Future<void> addApplication(List<AppRoom> roomHouses, double total) async {
+  //   final url = 'https://house-6dc86-default-rtdb.firebaseio.com/monthlypayment/$userId.json?auth=$authToken';
+  //   final timestamp = DateTime.now();
+  //   final response = await http.post(
+  //     url,
+  //     body: json.encode({
+  //       'amount': total,
+  //       'dateTime': timestamp.toIso8601String(),
+  //       'houses': roomHouses
+  //           .map((cp) => {
+  //                 'id': cp.id,
+  //                 'houseno': cp.houseno,
+  //                 'status': "Paid",
+  //                 'pai': "Thank you, You have been paid bail",
+  //                 'pai1': "for the first month.",
+  //                 'pai2': " ",
+  //                 'co': "Monthly Payment made",
+  //                 'at': "Rent to own",
+  //                 'at1': "KK 36 St",
+  //                 'quantity': cp.quantity,
+  //                 'price': cp.price,
+  //                 'name': "MUTESI Aline",
+  //                 'jobTtitle': "4242********4242",
+  //                 // 'name': "INTWARI Symplice",
+  //                 // 'jobTtitle': "5555********4444",
+  //                 'company': "EN",
+  //               })
+  //           .toList(),
+  //     }),
+  //   );
+  //   _orders.insert(
+  //     0,
+  //     HouseApplication(
+  //       id: json.decode(response.body)['name'],
+  //       amount: total,
+  //       dateTime: timestamp,
+  //       houses: roomHouses,
+  //     ),
+  //   );
+  //   notifyListeners();
+  // }
 }

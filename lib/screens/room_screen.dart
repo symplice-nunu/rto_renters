@@ -32,10 +32,10 @@ class _EditRoomScreenState extends State<RoomScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(
-                    'Total',
-                    style: TextStyle(fontSize: 20),
-                  ),
+                  // Text(
+                  //   'Total',
+                  //   style: TextStyle(fontSize: 20),
+                  // ),
                   Spacer(),
                   Chip(
                     label: Text(

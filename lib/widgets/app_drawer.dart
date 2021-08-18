@@ -4,7 +4,9 @@ import 'package:rto_renters/screens/homee.dart';
 import '../screens/application_screen.dart';
 import '../screens/monthly_payment_screen.dart';
 import '../screens/bail_payment_screen.dart';
+import '../screens/edit_person_screen.dart';
 import '../screens/user_houses_screen.dart';
+import '../screens/person_details_screen.dart';
 import '../screens/user_cancels_screen.dart';
 import '../screens/home.dart';
 import '../providers/auth.dart';
@@ -35,11 +37,9 @@ class AppDrawer extends StatelessWidget {
             onTap: () {
               Navigator.of(context)
                   .pushReplacementNamed(ApplicationScreen.routeName);
-              
             },
           ),
-           Divider(),
-         
+          Divider(),
           ListTile(
             leading: Icon(Icons.cancel),
             title: Text('Request to cancel rent'),
@@ -49,15 +49,12 @@ class AppDrawer extends StatelessWidget {
             },
           ),
           Divider(),
-         
-         
           ListTile(
             leading: Icon(Icons.view_column),
             title: Text('View Bail Payment'),
             onTap: () {
               Navigator.of(context)
                   .pushReplacementNamed(BailPaymentScreen.routeName);
-              
             },
           ),
           Divider(),
@@ -67,7 +64,6 @@ class AppDrawer extends StatelessWidget {
             onTap: () {
               Navigator.of(context)
                   .pushReplacementNamed(MonthlyPaymentScreen.routeName);
-              
             },
           ),
           Divider(),
@@ -75,19 +71,26 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.payment),
             title: Text('Pay Bail'),
             onTap: () {
-              Navigator.of(context)
-                  .pushReplacementNamed(HomeePage.routeName);
+              Navigator.of(context).pushReplacementNamed(HomeePage.routeName);
             },
           ),
           Divider(),
-           ListTile(
+          ListTile(
             leading: Icon(Icons.payment),
             title: Text('Pay House'),
             onTap: () {
-              Navigator.of(context)
-                  .pushReplacementNamed(HomePage.routeName);
+              Navigator.of(context).pushReplacementNamed(HomePage.routeName);
             },
           ),
+          // Divider(),
+          // ListTile(
+          //   leading: Icon(Icons.person),
+          //   title: Text('Set Person Details'),
+          //   onTap: () {
+          //     Navigator.of(context)
+          //         .pushReplacementNamed(PersonDetailsScreen.routeName);
+          //   },
+          // ),
           Divider(),
           ListTile(
             leading: Icon(Icons.exit_to_app),
@@ -96,8 +99,7 @@ class AppDrawer extends StatelessWidget {
               Navigator.of(context).pop();
               Navigator.of(context).pushReplacementNamed('/');
 
-              // Navigator.of(context)
-              //     .pushReplacementNamed(UserProductsScreen.routeName);
+              
               Provider.of<Auth>(context, listen: false).logout();
             },
           ),

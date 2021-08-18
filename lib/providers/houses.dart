@@ -165,6 +165,40 @@ class Houses with ChangeNotifier {
       throw (error);
     }
   }
+  Future<void> fetchAndSetPersonDetails([bool filterByUser = false]) async {
+    final filterString = filterByUser ? 'orderBy="creatorId"&equalTo="$userId"' : '';
+    var url =
+        'https://house-6dc86-default-rtdb.firebaseio.com/persondetails.json?auth=$authToken&$filterString';
+    try {
+      final response = await http.get(url);
+      final extractedData = json.decode(response.body) as Map<String, dynamic>;
+      if (extractedData == null) {
+        return;
+      }
+      url =
+          'https://house-6dc86-default-rtdb.firebaseio.com/userFavorites/$userId.json?auth=$authToken';
+      final favoriteResponse = await http.get(url);
+      final favoriteData = json.decode(favoriteResponse.body);
+      final List<Cancel> loadedCancels = [];
+      extractedData.forEach((prodId, prodData) {
+        loadedCancels.add(Cancel(
+          id: prodId,
+          name: prodData['name'],
+          houseno: prodData['houseno'],
+          status: prodData['status'],
+          reasons: prodData['reasons'],
+          date: prodData['date'],
+          isFavorite:
+              favoriteData == null ? false : favoriteData[prodId] ?? false,
+        ));
+      });
+      _itemss = loadedCancels;
+      notifyListeners();
+    } catch (error) {
+      throw (error);
+    }
+  }
+
 
   Future<void> addHouse(House house) async {
     final url =
@@ -211,6 +245,39 @@ class Houses with ChangeNotifier {
     }
   }
 
+
+Future<void> addPersonDetails(Cancel cancel) async {
+    final url =
+        'https://house-6dc86-default-rtdb.firebaseio.com/persondetails.json?auth=$authToken';
+        final dateTime = DateTime.now();
+    try {
+      final response = await http.post(
+        url,
+        body: json.encode({
+          'name': cancel.name,
+          'houseno': cancel.houseno,
+          'status' : "MUTESI Aline",
+          'reasons': cancel.reasons,
+          'date': dateTime.toIso8601String(),
+          'creatorId': userId,
+        }),
+      );
+      final newProduct = Cancel(
+        name: cancel.name,
+        houseno: cancel.houseno,
+        status: cancel.status,
+        reasons: cancel.reasons,
+        date: cancel.date,
+        id: json.decode(response.body)['name'],
+      );
+      _itemss.add(newProduct);
+      // _items.insert(0, newProduct); // at the start of the list
+      notifyListeners();
+    } catch (error) {
+      print(error);
+      throw error;
+    }
+  }
   Future<void> addCancel(Cancel cancel) async {
     final url =
         'https://house-6dc86-default-rtdb.firebaseio.com/cancelrents.json?auth=$authToken';
@@ -221,7 +288,7 @@ class Houses with ChangeNotifier {
         body: json.encode({
           'name': cancel.name,
           'houseno': cancel.houseno,
-          'status' : "Pending....",
+          'status' : "MUTESI Aline",
           'reasons': cancel.reasons,
           'date': dateTime.toIso8601String(),
           'creatorId': userId,
