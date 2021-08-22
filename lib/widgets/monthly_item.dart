@@ -5,17 +5,34 @@ import 'package:intl/intl.dart';
 import 'package:date_count_down/date_count_down.dart';
 import '../providers/houseapplication.dart' as ord;
 
-class ApplicationItem extends StatefulWidget {
+class MonthlyItem extends StatefulWidget {
   final ord.HouseApplication applica;
 
-  ApplicationItem(this.applica);
+  MonthlyItem(this.applica);
 
   @override
-  _ApplicationItemState createState() => _ApplicationItemState();
+  _MonthlyItemState createState() => _MonthlyItemState();
 }
 
-class _ApplicationItemState extends State<ApplicationItem> {
+class _MonthlyItemState extends State<MonthlyItem> {
   var _expanded = false;
+  
+  String countTime = "Loading...";
+  Timer _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _timer.cancel();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -236,7 +253,7 @@ class _ApplicationItemState extends State<ApplicationItem> {
             
             AnimatedContainer(
               duration: Duration(milliseconds: 300),
-              padding: EdgeInsets.symmetric(horizontal: 95, vertical: 4),
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
               height: _expanded ? min(widget.applica.houses.length * 20.0 + 10, 100) : 0,
               child: ListView(
                 children: widget.applica.houses
@@ -246,10 +263,14 @@ class _ApplicationItemState extends State<ApplicationItem> {
                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Text(
-                                prod.at1,
+                                // prod.at1,
+                                CountDown().timeLeft(DateTime.parse(prod.at1), "Rent Completed, allowed to sign a contract certifying that the house is yours"),
+                                
                                 style: TextStyle(
-                                  fontSize: 15,
+                                  fontSize: 9,
                                   fontWeight: FontWeight.bold,
+                                  
+                                  color: Colors.green,
                                 ),
                               ),
                               

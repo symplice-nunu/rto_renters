@@ -31,7 +31,8 @@ class Application with ChangeNotifier {
   }
 
   Future<void> fetchAndSetApplication() async {
-    final url = 'https://house-6dc86-default-rtdb.firebaseio.com/houseapplication/$userId.json?auth=$authToken';
+    final url =
+        'https://house-6dc86-default-rtdb.firebaseio.com/houseapplication/$userId.json?auth=$authToken';
     final response = await http.get(url);
     final List<HouseApplication> loadedOrders = [];
     final extractedData = json.decode(response.body) as Map<String, dynamic>;
@@ -47,21 +48,21 @@ class Application with ChangeNotifier {
           houses: (orderData['houses'] as List<dynamic>)
               .map(
                 (item) => AppRoom(
-                      id: item['id'],
-                      price: item['price'],
-                      quantity: item['quantity'],
-                      houseno: item['houseno'],
-                      status: item['status'],
-                      pai: item['pai'],
-                      pai1: item['pai1'],
-                      pai2: item['pai2'],
-                      at: item['at'],
-                      at1: item['at1'],
-                      name: item['name'],
-                      co: item['co'],
-                      jobTtitle: item['jobTtitle'],
-                      company: item['company'],
-                    ),
+                  id: item['id'],
+                  price: item['price'],
+                  quantity: item['quantity'],
+                  houseno: item['houseno'],
+                  status: item['status'],
+                  pai: item['pai'],
+                  pai1: item['pai1'],
+                  pai2: item['pai2'],
+                  at: item['at'],
+                  at1: item['at1'],
+                  name: item['name'],
+                  co: item['co'],
+                  jobTtitle: item['jobTtitle'],
+                  company: item['company'],
+                ),
               )
               .toList(),
         ),
@@ -72,7 +73,8 @@ class Application with ChangeNotifier {
   }
 
   Future<void> fetchAndSetPayments() async {
-    final url = 'https://house-6dc86-default-rtdb.firebaseio.com/monthlypayment/$userId.json?auth=$authToken';
+    final url =
+        'https://house-6dc86-default-rtdb.firebaseio.com/monthlypayment/$userId.json?auth=$authToken';
     final response = await http.get(url);
     final List<HouseApplication> loadedOrders = [];
     final extractedData = json.decode(response.body) as Map<String, dynamic>;
@@ -88,21 +90,21 @@ class Application with ChangeNotifier {
           houses: (orderData['houses'] as List<dynamic>)
               .map(
                 (item) => AppRoom(
-                      id: item['id'],
-                      price: item['price'],
-                      quantity: item['quantity'],
-                      houseno: item['houseno'],
-                      status: item['status'],
-                      pai: item['pai'],
-                      pai1: item['pai1'],
-                      pai2: item['pai2'],
-                      at: item['at'],
-                      at1: item['at1'],
-                      name: item['name'],
-                      co: item['co'],
-                      jobTtitle: item['jobTtitle'],
-                      company: item['company'],
-                    ),
+                  id: item['id'],
+                  price: item['price'],
+                  quantity: item['quantity'],
+                  houseno: item['houseno'],
+                  status: item['status'],
+                  pai: item['pai'],
+                  pai1: item['pai1'],
+                  pai2: item['pai2'],
+                  at: item['at'],
+                  at1: item['at1'],
+                  name: item['name'],
+                  co: item['co'],
+                  jobTtitle: item['jobTtitle'],
+                  company: item['company'],
+                ),
               )
               .toList(),
         ),
@@ -112,8 +114,9 @@ class Application with ChangeNotifier {
     notifyListeners();
   }
 
-Future<void> fetchAndSetBail() async {
-    final url = 'https://house-6dc86-default-rtdb.firebaseio.com/bailpayment/$userId.json?auth=$authToken';
+  Future<void> fetchAndSetBail() async {
+    final url =
+        'https://house-6dc86-default-rtdb.firebaseio.com/bailpayment/$userId.json?auth=$authToken';
     final response = await http.get(url);
     final List<HouseApplication> loadedOrders = [];
     final extractedData = json.decode(response.body) as Map<String, dynamic>;
@@ -129,22 +132,21 @@ Future<void> fetchAndSetBail() async {
           houses: (orderData['houses'] as List<dynamic>)
               .map(
                 (item) => AppRoom(
-                      id: item['id'],
-                      price: item['price'],
-                      quantity: item['quantity'],
-                      houseno: item['houseno'],
-                      status: item['status'],
-                      pai: item['pai'],
-                      pai1: item['pai1'],
-                      pai2: item['pai2'],
-                      at: item['at'],
-                      at1: item['at1'],
-                      name: item['name'],
-                      co: item['co'],
-                      jobTtitle: item['jobTtitle'],
-                      company: item['company'],
-                      
-                    ),
+                  id: item['id'],
+                  price: item['price'],
+                  quantity: item['quantity'],
+                  houseno: item['houseno'],
+                  status: item['status'],
+                  pai: item['pai'],
+                  pai1: item['pai1'],
+                  pai2: item['pai2'],
+                  at: item['at'],
+                  at1: item['at1'],
+                  name: item['name'],
+                  co: item['co'],
+                  jobTtitle: item['jobTtitle'],
+                  company: item['company'],
+                ),
               )
               .toList(),
         ),
@@ -153,10 +155,10 @@ Future<void> fetchAndSetBail() async {
     _orders = loadedOrders.reversed.toList();
     notifyListeners();
   }
-
 
   Future<void> addApplication(List<AppRoom> roomHouses, double total) async {
-    final url = 'https://house-6dc86-default-rtdb.firebaseio.com/houseapplication/$userId.json?auth=$authToken';
+    final url =
+        'https://house-6dc86-default-rtdb.firebaseio.com/houseapplication/$userId.json?auth=$authToken';
     final timestamp = DateTime.now();
     final response = await http.post(
       url,
@@ -176,10 +178,9 @@ Future<void> fetchAndSetBail() async {
                   'at1': "08:00 am to 04:30 pm",
                   'quantity': cp.quantity,
                   'price': cp.price,
-                  'name': "Anne Marie",
-                  'jobTtitle': "Coach, Salary: 900 000 Frw.",
-                  'company': "RWANDA Team",
-                  
+                  'name': "NIBYAYO PlACIDE",
+                  'jobTtitle': "Doctor, Salary: 800 000 Frw.",
+                  'company': "C.H.U.K",
                 })
             .toList(),
       }),
@@ -196,7 +197,7 @@ Future<void> fetchAndSetBail() async {
     notifyListeners();
   }
   // Future<void> addApplication(List<AppRoom> roomHouses, double total) async {
-  //   final url = 'https://house-6dc86-default-rtdb.firebaseio.com/monthlypayment/$userId.json?auth=$authToken';
+  //   final url = 'https://house-6dc86-default-rtdb.firebaseio.com/bailpayment/$userId.json?auth=$authToken';
   //   final timestamp = DateTime.now();
   //   final response = await http.post(
   //     url,
@@ -211,15 +212,15 @@ Future<void> fetchAndSetBail() async {
   //                 'pai': "Thank you, You have been paid bail",
   //                 'pai1': "for the first month.",
   //                 'pai2': " ",
-  //                 'co': "Monthly Payment made",
+  //                 'co': "Bail Payment made",
   //                 'at': "Rent to own",
-  //                 'at1': "KK 36 St",
+  //                 'at1': "2021-09-22",
   //                 'quantity': cp.quantity,
   //                 'price': cp.price,
-  //                 'name': "MUTESI Aline",
-  //                 'jobTtitle': "4242********4242",
-  //                 // 'name': "INTWARI Symplice",
-  //                 // 'jobTtitle': "5555********4444",
+  //                 // 'name': "MUTESI Aline",
+  //                 // 'jobTtitle': "4242********4242",
+  //                 'name': "INTWARI Symplice",
+  //                 'jobTtitle': "5555********4444",
   //                 'company': "EN",
   //               })
   //           .toList(),
